@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDM Monthly Report - MGGS PANCHWA</title>
+    <title>MDM Report - MGGS PANCHWA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body { background-color: #f8f9fa; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; }
-        .printable-area { background: #fff; padding: 15px; border: 1px solid #000; }
-        .table-custom { border: 1px solid #000 !important; width: 100%; margin-bottom: 12px; border-collapse: collapse; }
-        .table-custom th, .table-custom td { border: 1px solid #000 !important; padding: 4px; text-align: center; vertical-align: middle; font-size: 11px; }
+        .printable-area { background: #fff; padding: 10px; border: 1px solid #000; }
+        .table-custom { border: 1px solid #000 !important; width: 100%; margin-bottom: 10px; border-collapse: collapse; }
+        .table-custom th, .table-custom td { border: 1px solid #000 !important; padding: 3px; text-align: center; vertical-align: middle; font-size: 11px; }
         .table-custom th { background-color: #e9ecef !important; }
+
+        /* PRINT STYLES FOR PERFECT PDF */
+        @media print {
+            @page { size: A4 landscape; margin: 5mm; }
+            body * { visibility: hidden; }
+            #pdfTemplate, #pdfTemplate * { visibility: visible; }
+            #pdfTemplate { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
 <body class="py-3">
 
-<div class="container-fluid" style="max-width: 1100px;">
+<div class="container-fluid no-print" style="max-width: 1100px;">
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white fw-bold">MDM मासिक प्रगति रिपोर्ट फॉर्म - MGGS PANCHWA</div>
         <div class="card-body">
@@ -77,131 +83,132 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <button type="button" onclick="generateMDMRealPDF()" class="btn btn-success btn-lg px-5 fw-bold">
-                        PDF डाउनलोड करें
+                    <button type="button" onclick="printReport()" class="btn btn-success btn-lg px-5 fw-bold">
+                        📄 प्रिंट / PDF सेव करें
                     </button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
-    <!-- PRINTABLE SECTION -->
-    <div id="pdfTemplate" style="display: none;">
-        <div class="printable-area">
-            <div class="text-center mb-2">
-                <h6 class="fw-bold mb-0">OFFICE - MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA (<span id="pSchoolCode">402846</span>)</h6>
-                <h5 class="fw-bold text-decoration-underline my-1">MDM मासिक प्रगति रिपोर्ट</h5>
-                <div class="d-flex justify-content-between px-2 fw-bold" style="font-size: 11px;">
-                    <span>दिनांक: <span id="pReportDate">31.07.2026</span></span>
-                    <span>माह का नाम: <span id="pMonthName">जुलाई 2026</span></span>
-                </div>
+<!-- PRINTABLE TEMPLATE -->
+<div id="pdfTemplate" style="display: none;">
+    <div class="printable-area">
+        <div class="text-center mb-2">
+            <h6 class="fw-bold mb-0">OFFICE - MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA (<span id="pSchoolCode">402846</span>)</h6>
+            <h5 class="fw-bold text-decoration-underline my-1">MDM मासिक प्रगति रिपोर्ट</h5>
+            <div class="d-flex justify-content-between px-2 fw-bold" style="font-size: 11px;">
+                <span>दिनांक: <span id="pReportDate">31.07.2026</span></span>
+                <span>माह का नाम: <span id="pMonthName">जुलाई 2026</span></span>
             </div>
+        </div>
 
-            <div class="fw-bold text-end" style="font-size: 10px;">कक्षा 1 से 5 के लिए</div>
-            <table class="table-custom">
-                <thead>
-                    <tr>
-                        <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 1-5</th>
-                        <th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th><th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th>
-                        <th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
-                    </tr>
-                    <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="pSrNo1">104</td><td id="pGp1">पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
-                        <td id="p_c15_enr">61</td><td id="p_c15_w_op">418.300</td><td id="p_c15_r_op">462.200</td>
-                        <td id="p_c15_w_rec">0.000</td><td id="p_c15_r_rec">0.000</td><td id="p_c15_w_con">39.200</td>
-                        <td id="p_c15_r_con">79.700</td><td id="p_c15_w_rem">379.100</td><td id="p_c15_r_rem">382.500</td>
-                        <td id="p_c15_ben">1189</td><td id="p_c15_exp">8061</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="fw-bold text-end" style="font-size: 10px;">कक्षा 1 से 5 के लिए</div>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 1-5</th>
+                    <th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th><th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th>
+                    <th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
+                </tr>
+                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="pSrNo1">104</td><td id="pGp1">पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
+                    <td id="p_c15_enr">61</td><td id="p_c15_w_op">418.300</td><td id="p_c15_r_op">462.200</td>
+                    <td id="p_c15_w_rec">0.000</td><td id="p_c15_r_rec">0.000</td><td id="p_c15_w_con">39.200</td>
+                    <td id="p_c15_r_con">79.700</td><td id="p_c15_w_rem">379.100</td><td id="p_c15_r_rem">382.500</td>
+                    <td id="p_c15_ben">1189</td><td id="p_c15_exp">8061</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="fw-bold text-end" style="font-size: 10px;">कक्षा 6 से 8 के लिए</div>
-            <table class="table-custom">
-                <thead>
-                    <tr>
-                        <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 6-8</th>
-                        <th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th><th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th>
-                        <th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
-                    </tr>
-                    <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="pSrNo2">104</td><td id="pGp2">पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
-                        <td id="p_c68_enr">60</td><td id="p_c68_w_op">471.500</td><td id="p_c68_r_op">432.150</td>
-                        <td id="p_c68_w_rec">0.000</td><td id="p_c68_r_rec">50.000</td><td id="p_c68_w_con">69.450</td>
-                        <td id="p_c68_r_con">141.150</td><td id="p_c68_w_rem">402.050</td><td id="p_c68_r_rem">341.000</td>
-                        <td id="p_c68_ben">1404</td><td id="p_c68_exp">14279</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="fw-bold text-end" style="font-size: 10px;">कक्षा 6 से 8 के लिए</div>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 6-8</th>
+                    <th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th><th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th>
+                    <th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
+                </tr>
+                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="pSrNo2">104</td><td id="pGp2">पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
+                    <td id="p_c68_enr">60</td><td id="p_c68_w_op">471.500</td><td id="p_c68_r_op">432.150</td>
+                    <td id="p_c68_w_rec">0.000</td><td id="p_c68_r_rec">50.000</td><td id="p_c68_w_con">69.450</td>
+                    <td id="p_c68_r_con">141.150</td><td id="p_c68_w_rem">402.050</td><td id="p_c68_r_rem">341.000</td>
+                    <td id="p_c68_ben">1404</td><td id="p_c68_exp">14279</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="fw-bold text-start" style="font-size: 10px;">योग कक्षा 01 से 08 तक का योग (RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाए)</div>
-            <table class="table-custom">
-                <thead>
-                    <tr>
-                        <th rowspan="2">नामांकन 1-8</th><th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th>
-                        <th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th><th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
-                    </tr>
-                    <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
-                </thead>
-                <tbody>
-                    <tr class="fw-bold">
-                        <td id="p_tot_enr">121</td><td id="p_tot_w_op">889.800</td><td id="p_tot_r_op">894.350</td>
-                        <td id="p_tot_w_rec">0.000</td><td id="p_tot_r_rec">50.000</td><td id="p_tot_w_con">108.650</td>
-                        <td id="p_tot_r_con">220.850</td><td id="p_tot_w_rem">781.150</td><td id="p_tot_r_rem">723.500</td>
-                        <td id="p_tot_ben">2593</td><td id="p_tot_exp">22340</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="fw-bold text-start" style="font-size: 10px;">योग कक्षा 01 से 08 तक का योग (RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाए)</div>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th rowspan="2">नामांकन 1-8</th><th colspan="2">पिछले माह अवशेष</th><th colspan="2">इस माह प्राप्त</th>
+                    <th colspan="2">पकाया खाद्यान्न</th><th colspan="2">अवशेष</th><th rowspan="2">लाभांवित</th><th rowspan="2">व्यय राशि</th>
+                </tr>
+                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+            </thead>
+            <tbody>
+                <tr class="fw-bold">
+                    <td id="p_tot_enr">121</td><td id="p_tot_w_op">889.800</td><td id="p_tot_r_op">894.350</td>
+                    <td id="p_tot_w_rec">0.000</td><td id="p_tot_r_rec">50.000</td><td id="p_tot_w_con">108.650</td>
+                    <td id="p_tot_r_con">220.850</td><td id="p_tot_w_rem">781.150</td><td id="p_tot_r_rem">723.500</td>
+                    <td id="p_tot_ben">2593</td><td id="p_tot_exp">22340</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="fw-bold text-center" style="font-size: 10px;">पन्नाधाय बाल गोपाल दुग्ध योजना</div>
-            <table class="table-custom">
-                <thead>
-                    <tr>
-                        <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th>
-                        <th colspan="2">लाभांवित बच्चे</th><th colspan="2">पिछले माह अवशेष पाउडर</th><th colspan="2">प्राप्त पाउडर</th><th colspan="2">खर्च पाउडर</th><th colspan="2">अवशेष पाउडर</th><th colspan="2">चीनी उपयोग (gm)</th>
-                    </tr>
-                    <tr><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>104</td><td>पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
-                        <td id="p_mb_15">1189</td><td id="p_mb_68">1404</td><td id="p_mo_15">71.005</td><td id="p_mo_68">38.920</td>
-                        <td>0.000</td><td>0.000</td><td id="p_mc_15">17.835</td><td id="p_mc_68">28.080</td>
-                        <td id="p_mr_15">53.170</td><td id="p_mr_68">10.840</td><td id="p_sc_15">9987.600</td><td id="p_sc_68">14320.800</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="fw-bold text-center" style="font-size: 10px;">पन्नाधाय बाल गोपाल दुग्ध योजना</div>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th>
+                    <th colspan="2">लाभांवित बच्चे</th><th colspan="2">पिछले माह अवशेष पाउडर</th><th colspan="2">प्राप्त पाउडर</th><th colspan="2">खर्च पाउडर</th><th colspan="2">अवशेष पाउडर</th><th colspan="2">चीनी उपयोग (gm)</th>
+                </tr>
+                <tr><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th><th>1-5</th><th>6-8</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>104</td><td>पांचवा</td><td>एम. जी. जी. एस. रेगर बस्ती पांचवा</td>
+                    <td id="p_mb_15">1189</td><td id="p_mb_68">1404</td><td id="p_mo_15">71.005</td><td id="p_mo_68">38.920</td>
+                    <td>0.000</td><td>0.000</td><td id="p_mc_15">17.835</td><td id="p_mc_68">28.080</td>
+                    <td id="p_mr_15">53.170</td><td id="p_mr_68">10.840</td><td id="p_sc_15">9987.600</td><td id="p_sc_68">14320.800</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="fw-bold text-center" style="font-size: 10px;">कार्यरत कुककम हेल्पर व वित्तीय स्थिति</div>
-            <table class="table-custom">
-                <thead>
-                    <tr>
-                        <th>कुककम हेल्पर संख्या</th><th>मांग राशि</th><th>बकाया राशि</th><th>स्वास्थ्य परीक्षण</th><th>बीमा संख्या</th><th>हेल्पर अवशेष (₹)</th><th>चीनी अवशेष (₹)</th><th>गैस अवशेष (₹)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="p_h_cnt">2</td><td id="p_h_dem">4934</td><td>0</td><td>2</td><td>2</td>
-                        <td id="p_b_h">-3500.00</td><td id="p_b_s">249.31</td><td id="p_b_g">-1369.00</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="fw-bold text-center" style="font-size: 10px;">कार्यरत कुककम हेल्पर व वित्तीय स्थिति</div>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>कुककम हेल्पर संख्या</th><th>मांग राशि</th><th>बकाया राशि</th><th>स्वास्थ्य परीक्षण</th><th>बीमा संख्या</th><th>हेल्पर अवशेष (₹)</th><th>चीनी अवशेष (₹)</th><th>गैस अवशेष (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="p_h_cnt">2</td><td id="p_h_dem">4934</td><td>0</td><td>2</td><td>2</td>
+                    <td id="p_b_h">-3500.00</td><td id="p_b_s">249.31</td><td id="p_b_g">-1369.00</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="row mt-3 pt-3" style="font-size: 11px;">
-                <div class="col-6 text-center fw-bold"><p>हस्ताक्षर पोषाहार प्रभारी</p></div>
-                <div class="col-6 text-center fw-bold"><p>हस्ताक्षर संस्था प्रधान (मय सील)</p></div>
-            </div>
+        <div class="row mt-4 pt-4" style="font-size: 11px;">
+            <div class="col-6 text-center fw-bold"><p>हस्ताक्षर पोषाहार प्रभारी</p></div>
+            <div class="col-6 text-center fw-bold"><p>हस्ताक्षर संस्था प्रधान (मय सील)</p></div>
         </div>
     </div>
 </div>
 
 <script>
-function generateMDMRealPDF() {
+function printReport() {
+    // 1-5 Calculations
     const c15_w_op = parseFloat(document.getElementById('c15_w_op').value) || 0;
     const c15_w_rec = parseFloat(document.getElementById('c15_w_rec').value) || 0;
     const c15_w_con = parseFloat(document.getElementById('c15_w_con').value) || 0;
@@ -212,6 +219,7 @@ function generateMDMRealPDF() {
     const c15_r_con = parseFloat(document.getElementById('c15_r_con').value) || 0;
     const c15_r_rem = (c15_r_op + c15_r_rec) - c15_r_con;
 
+    // 6-8 Calculations
     const c68_w_op = parseFloat(document.getElementById('c68_w_op').value) || 0;
     const c68_w_rec = parseFloat(document.getElementById('c68_w_rec').value) || 0;
     const c68_w_con = parseFloat(document.getElementById('c68_w_con').value) || 0;
@@ -222,6 +230,7 @@ function generateMDMRealPDF() {
     const c68_r_con = parseFloat(document.getElementById('c68_r_con').value) || 0;
     const c68_r_rem = (c68_r_op + c68_r_rec) - c68_r_con;
 
+    // Render Data to Table
     document.getElementById('p_c15_enr').innerText = document.getElementById('c15_enr').value;
     document.getElementById('p_c15_w_op').innerText = c15_w_op.toFixed(3);
     document.getElementById('p_c15_r_op').innerText = c15_r_op.toFixed(3);
@@ -259,22 +268,12 @@ function generateMDMRealPDF() {
     document.getElementById('p_tot_exp').innerText = (parseFloat(document.getElementById('c15_exp').value)||0) + (parseFloat(document.getElementById('c68_exp').value)||0);
 
     const element = document.getElementById('pdfTemplate');
-    const element = document.getElementById('pdfTemplate');
     element.style.display = 'block';
 
-    const opt = {
-        margin: 5,
-        filename: `MDM_Report_${document.getElementById('monthName').value}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-    };
+    // Trigger Native Browser Print Dialog
+    window.print();
 
-    html2pdf().set(opt).from(element).save().then(() => {
-        element.style.display = 'none';
-    }).catch(() => {
-        element.style.display = 'none';
-    });
+    element.style.display = 'none';
 }
 </script>
 </body>
