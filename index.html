@@ -8,7 +8,7 @@
     <style>
         body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; }
         
-        /* Dashboard Section Borders */
+        /* Dashboard Card Borders */
         .dashboard-card {
             border: 2px solid #0d6efd !important;
             border-radius: 8px;
@@ -23,7 +23,7 @@
             font-size: 13px;
         }
 
-        /* Locked / Calculated Input Fields */
+        /* Locked Automatic Input Fields */
         .field-locked {
             background-color: #fff3cd !important;
             border: 1px solid #ffeba2 !important;
@@ -31,40 +31,62 @@
             font-weight: bold;
         }
 
-        /* Printable Area - Matching Uploaded Image */
-        .printable-area { background: #fff; padding: 10px; color: #000; font-family: Arial, sans-serif; }
+        /* Printable Area CSS - Strictly Tuned for 1-Page A4 Landscape */
+        .printable-area { 
+            background: #fff; 
+            padding: 2px; 
+            color: #000; 
+            font-family: Arial, sans-serif; 
+        }
         
         .table-custom { 
-            border: 1.5px solid #000 !important; 
+            border: 1.2px solid #000 !important; 
             width: 100%; 
-            margin-bottom: 6px; 
+            margin-bottom: 3px; 
             border-collapse: collapse; 
             table-layout: fixed; 
         }
 
         .table-custom th, .table-custom td { 
             border: 1px solid #000 !important; 
-            padding: 3px 2px; 
+            padding: 1px 1px; 
             text-align: center; 
             vertical-align: middle; 
-            font-size: 10.5px;
+            font-size: 9.5px;
             font-weight: 600;
             word-wrap: break-word;
-            white-space: normal; /* Text Wrap Enabled */
+            white-space: normal; /* Wrap Text Enabled */
+            line-height: 1.1;
         }
         
         .section-header-yellow {
             background-color: #ffff00 !important;
             font-weight: bold;
-            font-size: 11.5px;
+            font-size: 10px;
             color: #000;
         }
 
         @media print {
-            @page { size: A4 landscape; margin: 4mm; }
+            @page { 
+                size: A4 landscape; 
+                margin: 3mm 4mm 3mm 4mm; /* Tight margins to fit 1 page */
+            }
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
+            }
             body * { visibility: hidden; }
             #pdfTemplate, #pdfTemplate * { visibility: visible; }
-            #pdfTemplate { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
+            #pdfTemplate { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                display: block !important; 
+            }
             .no-print { display: none !important; }
         }
     </style>
@@ -72,7 +94,7 @@
 <body class="py-3">
 
 <div class="container-fluid no-print" style="max-width: 1350px;">
-    <h3 class="text-center fw-bold text-primary mb-3">MDM रिपोर्ट डेटा एंट्री पोर्टल</h3>
+    <h3 class="text-center fw-bold text-primary mb-3">MDM मासिक प्रगति रिपोर्ट डेटा पोर्टल</h3>
 
     <form id="mdmMainForm">
         <!-- PART 1: GENERAL INFO -->
@@ -94,7 +116,7 @@
             </div>
             <div class="row g-2">
                 <div class="col-md-3">
-                    <label class="form-label fw-bold">MDM क्रमांक</label>
+                    <label class="form-label fw-bold">क्र. सं. (MDM कोड)</label>
                     <input type="text" id="schoolCode" class="form-control" required placeholder="उदा. 104 या 402846">
                 </div>
                 <div class="col-md-3">
@@ -230,17 +252,17 @@
     </form>
 </div>
 
-<!-- PRINTABLE PDF TEMPLATE EXACT MATCH TO IMAGE -->
+<!-- PRINTABLE PDF TEMPLATE EXACT MATCH TO IMAGE (FITS 1 PAGE) -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
         <!-- HEADER TITLE -->
         <div class="text-center mb-1">
-            <h5 class="fw-bold mb-1" style="font-size: 16px; text-transform: uppercase; border-bottom: 1.5px solid #000; padding-bottom: 2px; display: inline-block;">
+            <h5 class="fw-bold mb-0" style="font-size: 15px; text-transform: uppercase; border-bottom: 1.5px solid #000; padding-bottom: 1px; display: inline-block;">
                 OFFICE - <span id="pSchoolTitle"></span>
             </h5>
             <div class="d-flex justify-content-between align-items-center px-1 fw-bold mt-1" style="font-size: 11px;">
                 <span style="width: 25%; text-align: left;">क्रमांक - <span id="pSrNo"></span></span>
-                <span style="width: 50%; text-align: center; font-size: 13px; color: red;">**MDM मासिक प्रगति रिपोर्ट**</span>
+                <span style="width: 50%; text-align: center; font-size: 12.5px; color: red;">**MDM मासिक प्रगति रिपोर्ट**</span>
                 <span style="width: 25%; text-align: right;">दिनांक - <span id="pReportDate"></span></span>
             </div>
         </div>
@@ -253,16 +275,16 @@
                     <td colspan="11" style="text-align: center;">कक्षा 1 से 5 के लिए</td>
                 </tr>
                 <tr>
-                    <th rowspan="2" style="width:35px;">क्र. सं.</th>
-                    <th rowspan="2" style="width:65px;">ग्राम पंचायत</th>
+                    <th rowspan="2" style="width:30px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:60px;">ग्राम पंचायत</th>
                     <th rowspan="2">विद्यालय का नाम</th>
                     <th rowspan="2" style="width:45px;">नामांकन 1 से 5</th>
                     <th colspan="2">पिछले माह का अवशेष</th>
                     <th colspan="2">इस माह में सप्लायर से प्राप्त</th>
                     <th colspan="2">कक्षा 1 से 5 के लिए पकाया गया खाद्यान्न</th>
                     <th colspan="2">अवशेष</th>
-                    <th rowspan="2" style="width:50px;">लाभांवित संख्या</th>
-                    <th rowspan="2" style="width:55px;">व्यय राशि</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
                 </tr>
                 <tr>
                     <th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th>
@@ -287,16 +309,16 @@
                     <td colspan="11" style="text-align: center;">कक्षा 6 से 8 के लिए</td>
                 </tr>
                 <tr>
-                    <th rowspan="2" style="width:35px;">क्र. सं.</th>
-                    <th rowspan="2" style="width:65px;">ग्राम पंचायत</th>
+                    <th rowspan="2" style="width:30px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:60px;">ग्राम पंचायत</th>
                     <th rowspan="2">विद्यालय का नाम</th>
                     <th rowspan="2" style="width:45px;">नामांकन 6 से 8</th>
                     <th colspan="2">पिछले माह का अवशेष</th>
                     <th colspan="2">इस माह में सप्लायर से प्राप्त</th>
                     <th colspan="2">कक्षा 6 से 8 के लिए पकाया गया खाद्यान्न</th>
                     <th colspan="2">अवशेष</th>
-                    <th rowspan="2" style="width:50px;">लाभांवित संख्या</th>
-                    <th rowspan="2" style="width:55px;">व्यय राशि</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
                 </tr>
                 <tr>
                     <th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th>
@@ -317,17 +339,17 @@
         <table class="table-custom">
             <thead>
                 <tr>
-                    <th rowspan="2" colspan="3" class="text-start fw-bold" style="background-color: #ffffff; font-size: 11px; padding-left: 5px;">
+                    <th rowspan="2" colspan="3" class="text-start fw-bold" style="background-color: #ffffff; font-size: 10px; padding-left: 3px;">
                         योग कक्षा 01 से 08 तक का योग<br>
-                        <span style="color: red; font-size: 8.5px; font-weight: bold;">(RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिये)</span>
+                        <span style="color: red; font-size: 8px; font-weight: bold;">(RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिये)</span>
                     </th>
                     <th rowspan="2" style="width:45px;">नामांकन 1 से 8</th>
                     <th colspan="2">पिछले माह का अवशेष</th>
                     <th colspan="2">इस माह में सप्लायर से प्राप्त</th>
                     <th colspan="2">कक्षा 1 से 8 के लिए पकाया गया खाद्यान्न</th>
                     <th colspan="2">अवशेष</th>
-                    <th rowspan="2" style="width:50px;">लाभांवित संख्या</th>
-                    <th rowspan="2" style="width:55px;">व्यय राशि</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
                 </tr>
                 <tr>
                     <th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th>
@@ -396,7 +418,7 @@
                     <th rowspan="2">विद्यालय का नाम</th>
                     <th colspan="3">बाल गोपाल योजना में पिछले माह अवशेष</th>
                     <th colspan="3">बाल गोपाल योजना में इस माह में प्राप्त राशि</th>
-                    <th colspan="3">बाल गोपाल योजना में खर्च की गयी राशि</th>
+                    <th colspan="3">बाल गोपाल योजना में खर्च की राशि</th>
                     <th colspan="3">बाल गोपाल योजना में अवशेष राशि</th>
                 </tr>
                 <tr>
@@ -428,12 +450,12 @@
                     <th style="width:30px;">क्र. सं.</th>
                     <th style="width:60px;">ग्राम पंचायत</th>
                     <th>विद्यालय का नाम</th>
-                    <th style="width:50px;">नामांकन 1 से 8</th>
-                    <th style="width:70px;">कार्यरत कुककम हेल्पर की संख्या</th>
-                    <th style="width:80px;">इस माह की कुककम हेल्पर की मांग राशि</th>
+                    <th style="width:45px;">नामांकन 1 से 8</th>
+                    <th style="width:65px;">कार्यरत कुककम हेल्पर की संख्या</th>
+                    <th style="width:75px;">इस माह की कुककम हेल्पर की मांग राशि</th>
                     <th>यदि कोई इस माह के अतिरिक्त पिछली कोई बकाया राशि हो तो लिखे</th>
-                    <th style="width:80px;">स्वास्थ्य परीक्षण करवाया हुआ है संख्या लिखें</th>
-                    <th style="width:80px;">बीमा करवाया हुआ है संख्या लिखें</th>
+                    <th style="width:75px;">स्वास्थ्य परीक्षण करवाया हुआ है संख्या लिखें</th>
+                    <th style="width:75px;">बीमा करवाया हुआ है संख्या लिखें</th>
                 </tr>
             </thead>
             <tbody>
@@ -450,26 +472,26 @@
         </table>
 
         <!-- SIGNATURE AREA -->
-        <div class="row mt-4 pt-3" style="font-size: 11px;">
+        <div class="row mt-2 pt-1" style="font-size: 10px;">
             <div class="col-6 text-center fw-bold">
-                <p><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
+                <p class="mb-0"><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
             </div>
             <div class="col-6 text-center fw-bold">
-                <p><u>हस्ताक्षर संस्था प्रधान</u></p>
+                <p class="mb-0"><u>हस्ताक्षर संस्था प्रधान</u></p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// Prevent Mouse Scroll Wheel from changing values in numeric inputs
+// Scroll Wheel Input Prevention
 document.addEventListener('wheel', function(event) {
     if (document.activeElement.type === 'number') {
         document.activeElement.blur();
     }
 });
 
-// Real-time Automatic Calculation Trigger
+// Automatic Calculation Logic
 document.querySelectorAll('.calc-trigger').forEach(input => {
     input.addEventListener('input', runCalculations);
 });
@@ -534,13 +556,13 @@ function runCalculations() {
     document.getElementById('s_con_15').value = s_con_15.toFixed(1);
     document.getElementById('s_con_68').value = s_con_68.toFixed(1);
 
-    // Sugar Expense Calculation (Rounded Integer)
+    // Sugar Expense Integer Calculation
     const sugar_rate = parseFloat(document.getElementById('sugar_rate').value) || 0;
     const tot_sugar_gm = s_con_15 + s_con_68;
     const bg_sugar_exp = Math.round((tot_sugar_gm / 1000) * sugar_rate);
     document.getElementById('bg_exp_s').value = bg_sugar_exp;
 
-    // Bal Gopal Financial Calculations (Rounded Integer)
+    // Bal Gopal Financial Calculations
     const bg_op_h = Math.round(parseFloat(document.getElementById('bg_op_h').value) || 0);
     const bg_op_s = Math.round(parseFloat(document.getElementById('bg_op_s').value) || 0);
     const bg_op_g = Math.round(parseFloat(document.getElementById('bg_op_g').value) || 0);
@@ -549,21 +571,21 @@ function runCalculations() {
     const bg_rec_s = Math.round(parseFloat(document.getElementById('bg_rec_s').value) || 0);
     const bg_rec_g = Math.round(parseFloat(document.getElementById('bg_rec_g').value) || 0);
 
-    const bg_exp_h = 500; // Locked 500
+    const bg_exp_h = 500;
     const bg_exp_g = Math.round(parseFloat(document.getElementById('bg_exp_g').value) || 0);
 
     document.getElementById('bg_rem_h').value = Math.round((bg_op_h + bg_rec_h) - bg_exp_h);
     document.getElementById('bg_rem_s').value = Math.round((bg_op_s + bg_rec_s) - bg_sugar_exp);
     document.getElementById('bg_rem_g').value = Math.round((bg_op_g + bg_rec_g) - bg_exp_g);
 
-    // Cook Cum Helper Calculations
+    // Helper Details
     const helper_cnt = parseFloat(document.getElementById('helper_cnt').value) || 0;
     document.getElementById('helper_dem').value = helper_cnt * 2467;
     document.getElementById('health_cnt').value = helper_cnt;
     document.getElementById('ins_cnt').value = helper_cnt;
 }
 
-// Shorten School Name till SCHOOL keyword for Table Print
+// Shorten School Name Dynamic Utility
 function formatShortSchoolName(fullName) {
     if (!fullName) return '';
     let upperName = fullName.trim().toUpperCase();
@@ -589,12 +611,11 @@ function formatDateStr(dateVal) {
     return dateVal;
 }
 
-// Form Submission & PDF Print Trigger
+// Form Submission & PDF Render
 document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     e.preventDefault();
     runCalculations();
 
-    // Map Month-Year and Header Details
     const month = document.getElementById('monthSelect').value;
     const year = document.getElementById('yearSelect').value;
     const monthYearStr = `${month} ${year}`;
@@ -678,7 +699,7 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     document.getElementById('p_sc_15').innerText = document.getElementById('s_con_15').value;
     document.getElementById('p_sc_68').innerText = document.getElementById('s_con_68').value;
 
-    // Map Bal Gopal Financial Breakdown
+    // Map Financial Data
     document.getElementById('p_bg_op_h').innerText = document.getElementById('bg_op_h').value;
     document.getElementById('p_bg_op_s').innerText = document.getElementById('bg_op_s').value;
     document.getElementById('p_bg_op_g').innerText = document.getElementById('bg_op_g').value;
@@ -702,7 +723,7 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     document.getElementById('p_hlth').innerText = document.getElementById('health_cnt').value;
     document.getElementById('p_ins').innerText = document.getElementById('ins_cnt').value;
 
-    // Execute Browser Print Dialog
+    // Trigger Print
     const element = document.getElementById('pdfTemplate');
     element.style.display = 'block';
     window.print();
