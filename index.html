@@ -8,7 +8,7 @@
     <style>
         body { background-color: #f4f6f9; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; }
         
-        /* Dashboard Borders */
+        /* Dashboard Section Borders */
         .dashboard-section {
             border: 2px solid #0d6efd !important;
             border-radius: 8px;
@@ -21,7 +21,7 @@
             border: 1px solid #495057 !important;
         }
 
-        /* Locked Auto Fields */
+        /* Locked / Auto Calculated Fields */
         .field-locked {
             background-color: #fff3cd !important;
             border: 1px solid #ffeba2 !important;
@@ -30,14 +30,14 @@
         }
 
         /* Printable Area Styles */
-        .printable-area { background: #fff; padding: 12px; border: 1px solid #000; color: #000; }
-        .table-custom { border: 1px solid #000 !important; width: 100%; margin-bottom: 8px; border-collapse: collapse; table-layout: fixed; }
+        .printable-area { background: #fff; padding: 10px; border: 1px solid #000; color: #000; }
+        .table-custom { border: 1px solid #000 !important; width: 100%; margin-bottom: 6px; border-collapse: collapse; table-layout: fixed; }
         .table-custom th, .table-custom td { 
             border: 1px solid #000 !important; 
             padding: 4px 2px; 
             text-align: center; 
             vertical-align: middle; 
-            font-size: 11px; /* Readability text size */
+            font-size: 11px;
             font-weight: 600;
             word-wrap: break-word;
             white-space: normal; /* Wrap Text Enabled */
@@ -123,7 +123,7 @@
 
         <!-- PART 2: MDM DATA FEEDING -->
         <div class="dashboard-section">
-            <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">PART - 2 : (MDM DATA FEEDING) [W = गेहूं, R = चावल]</h5>
+            <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">PART - 2 : (MDM DATA FEEDING) [W = गेहूँ, R = चावल]</h5>
 
             <!-- CLASS 1 TO 5 -->
             <h6 class="fw-bold text-secondary">कक्षा 1 से 5 (खाद्यान्न व व्यय)</h6>
@@ -178,12 +178,12 @@
                 <div class="col-md-4 bg-warning-subtle p-2 rounded border border-warning">
                     <label class="form-label fw-bold text-dark">चीनी की दर (₹ प्रति किग्रा)</label>
                     <input type="number" step="0.01" id="sugar_rate" class="form-control calc-trigger" required placeholder="उदा. 40">
-                    <small class="text-danger d-block mt-1">* यह केवल गणना हेतु है, PDF में नहीं छपेगा</small>
+                    <small class="text-danger d-block mt-1">* यह गणना हेतु है, PDF में नहीं छपेगा</small>
                 </div>
             </div>
 
             <!-- BAL GOPAL FINANCIAL SUMMARY -->
-            <h6 class="fw-bold text-secondary border-top pt-2">बाल गोपाल योजना राशि विवरण</h6>
+            <h6 class="fw-bold text-secondary border-top pt-2">बाल गोपाल योजना राशि विवरण (पूर्णांक में)</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">पिछला अवशेष (कुककम)</label><input type="number" id="bg_op_h" class="form-control calc-trigger" required></div>
                 <div class="col-md-2"><label class="form-label">पिछला अवशेष (चीनी)</label><input type="number" id="bg_op_s" class="form-control calc-trigger" required></div>
@@ -194,12 +194,12 @@
                 <div class="col-md-2"><label class="form-label">प्राप्त राशि (गैस)</label><input type="number" id="bg_rec_g" class="form-control calc-trigger" required></div>
 
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (कुककम)</label><input type="number" id="bg_exp_h" class="form-control field-locked" value="500" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (चीनी)</label><input type="number" id="bg_exp_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (चीनी-पूर्णांक)</label><input type="number" id="bg_exp_s" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label">खर्च राशि (गैस)</label><input type="number" id="bg_exp_g" class="form-control calc-trigger" required></div>
 
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (कुककम)</label><input type="number" id="bg_rem_h" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (चीनी)</label><input type="number" id="bg_rem_s" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (गैस)</label><input type="number" id="bg_rem_g" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (चीनी-पूर्णांक)</label><input type="number" id="bg_rem_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (गैस-पूर्णांक)</label><input type="number" id="bg_rem_g" class="form-control field-locked" readonly></div>
             </div>
 
             <!-- COOK CUM HELPER SECTION -->
@@ -221,7 +221,7 @@
     </form>
 </div>
 
-<!-- PRINTABLE TEMPLATE (EXACT LAYOUT AS UPLOADED IMAGE) -->
+<!-- PRINTABLE TEMPLATE -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
         <!-- HEADER TITLE -->
@@ -304,7 +304,7 @@
             </tbody>
         </table>
 
-        <!-- TABLE 3: TOTAL 1 TO 8 (LEFT HEADING AS PER UPLOADED IMAGE) -->
+        <!-- TABLE 3: TOTAL 1 TO 8 -->
         <table class="table-custom">
             <thead>
                 <tr>
@@ -527,27 +527,27 @@ function runCalculations() {
     document.getElementById('s_con_15').value = s_con_15.toFixed(1);
     document.getElementById('s_con_68').value = s_con_68.toFixed(1);
 
-    // Sugar Expense Calculation
+    // Sugar Expense Calculation (Rounded to Integer)
     const sugar_rate = parseFloat(document.getElementById('sugar_rate').value) || 0;
     const tot_sugar_gm = s_con_15 + s_con_68;
-    const bg_sugar_exp = (tot_sugar_gm / 1000) * sugar_rate;
-    document.getElementById('bg_exp_s').value = bg_sugar_exp.toFixed(2);
+    const bg_sugar_exp = Math.round((tot_sugar_gm / 1000) * sugar_rate);
+    document.getElementById('bg_exp_s').value = bg_sugar_exp;
 
-    // Bal Gopal Financial Calculations
-    const bg_op_h = parseFloat(document.getElementById('bg_op_h').value) || 0;
-    const bg_op_s = parseFloat(document.getElementById('bg_op_s').value) || 0;
-    const bg_op_g = parseFloat(document.getElementById('bg_op_g').value) || 0;
+    // Bal Gopal Financial Calculations (All Rounded to Integer)
+    const bg_op_h = Math.round(parseFloat(document.getElementById('bg_op_h').value) || 0);
+    const bg_op_s = Math.round(parseFloat(document.getElementById('bg_op_s').value) || 0);
+    const bg_op_g = Math.round(parseFloat(document.getElementById('bg_op_g').value) || 0);
 
-    const bg_rec_h = parseFloat(document.getElementById('bg_rec_h').value) || 0;
-    const bg_rec_s = parseFloat(document.getElementById('bg_rec_s').value) || 0;
-    const bg_rec_g = parseFloat(document.getElementById('bg_rec_g').value) || 0;
+    const bg_rec_h = Math.round(parseFloat(document.getElementById('bg_rec_h').value) || 0);
+    const bg_rec_s = Math.round(parseFloat(document.getElementById('bg_rec_s').value) || 0);
+    const bg_rec_g = Math.round(parseFloat(document.getElementById('bg_rec_g').value) || 0);
 
     const bg_exp_h = 500; // Locked 500
-    const bg_exp_g = parseFloat(document.getElementById('bg_exp_g').value) || 0;
+    const bg_exp_g = Math.round(parseFloat(document.getElementById('bg_exp_g').value) || 0);
 
-    document.getElementById('bg_rem_h').value = ((bg_op_h + bg_rec_h) - bg_exp_h).toFixed(2);
-    document.getElementById('bg_rem_s').value = ((bg_op_s + bg_rec_s) - bg_sugar_exp).toFixed(2);
-    document.getElementById('bg_rem_g').value = ((bg_op_g + bg_rec_g) - bg_exp_g).toFixed(2);
+    document.getElementById('bg_rem_h').value = Math.round((bg_op_h + bg_rec_h) - bg_exp_h);
+    document.getElementById('bg_rem_s').value = Math.round((bg_op_s + bg_rec_s) - bg_sugar_exp);
+    document.getElementById('bg_rem_g').value = Math.round((bg_op_g + bg_rec_g) - bg_exp_g);
 
     // Cook Cum Helper Calculations
     const helper_cnt = parseFloat(document.getElementById('helper_cnt').value) || 0;
@@ -567,7 +567,7 @@ function formatShortSchoolName(fullName) {
         let remainingPart = upperName.substring(schoolIdx).trim();
         
         let words = prefixPart.split(/\s+/);
-        let abbreviated = words.map(w => w.charAt(0) + '.').join(' ');
+        let abbreviated = words.map(w => w.charAt(0) + '.').join('');
         return abbreviated + ' ' + remainingPart;
     }
     return fullName;
@@ -597,7 +597,6 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     });
 
     const fullSchoolName = document.getElementById('schoolName').value;
-    // Office Title Without Bracket Code
     document.getElementById('pSchoolTitle').innerText = fullSchoolName;
     document.getElementById('pReportDate').innerText = formatDateStr(document.getElementById('reportDate').value);
     document.getElementById('pSrNo').innerText = document.getElementById('srNo').value;
