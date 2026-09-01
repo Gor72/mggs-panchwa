@@ -17,25 +17,35 @@
             margin-bottom: 20px;
         }
 
+        /* Bordered Input Elements */
+        .form-control, .form-select {
+            border: 1px solid #495057 !important;
+        }
+
         /* Locked / Auto Calculated Fields */
         .field-locked {
-            background-color: #e9ecef !important;
-            border: 1px solid #ced4da;
-            color: #495057;
+            background-color: #fff3cd !important; /* Soft Yellowish Alert Tone */
+            border: 1px solid #ffeba2 !important;
+            color: #856404;
             font-weight: bold;
         }
 
-        /* Printable Table Styles (Exact PDF Layout) */
-        .printable-area { background: #fff; padding: 10px; border: 1px solid #000; }
+        /* Printable Table Styles (Exact PDF Layout Matching) */
+        .printable-area { background: #fff; padding: 10px; border: 1px solid #000; color: #000; }
         .table-custom { border: 1px solid #000 !important; width: 100%; margin-bottom: 8px; border-collapse: collapse; }
-        .table-custom th, .table-custom td { border: 1px solid #000 !important; padding: 2px 4px; text-align: center; vertical-align: middle; font-size: 10px; }
-        .table-custom th { background-color: #f0f0f0 !important; font-weight: bold; }
+        .table-custom th, .table-custom td { border: 1px solid #000 !important; padding: 2px 3px; text-align: center; vertical-align: middle; font-size: 9.5px; }
         
-        .header-img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; border: 1px solid #000; }
-        .sign-img { width: 60px; height: 60px; object-fit: cover; border-radius: 50%; border: 1px solid #000; display: block; margin: 0 auto 2px auto; }
+        /* Yellow Section Bar Matching Uploaded PDF */
+        .section-header-yellow {
+            background-color: #ffff00 !important;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center !important;
+            color: #000;
+        }
 
         @media print {
-            @page { size: A4 landscape; margin: 4mm; }
+            @page { size: A4 landscape; margin: 5mm; }
             body * { visibility: hidden; }
             #pdfTemplate, #pdfTemplate * { visibility: visible; }
             #pdfTemplate { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
@@ -45,21 +55,36 @@
 </head>
 <body class="py-3">
 
-<div class="container-fluid no-print" style="max-width: 1200px;">
-    <h3 class="text-center fw-bold text-primary mb-3">MDM रिपोर्ट डेटा एंट्री सिस्टम</h3>
+<div class="container-fluid no-print" style="max-width: 1250px;">
+    <h3 class="text-center fw-bold text-primary mb-3">MDM रिपोर्ट डेटा एंट्री पोर्टल</h3>
 
     <form id="mdmMainForm">
         <!-- PART 1: GENERAL INFORMATION -->
         <div class="dashboard-section">
             <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">PART - 1 : सामान्य जानकारी</h5>
             <div class="row g-2 mb-2">
-                <div class="col-md-4"><label class="form-label fw-bold">स्कूल का नाम</label><input type="text" id="schoolName" class="form-control"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">पंचायत का नाम</label><input type="text" id="gpName" class="form-control"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">संस्था प्रधान का नाम</label><input type="text" id="principalName" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label fw-bold">स्कूल MDM क्रमांक</label><input type="text" id="schoolCode" class="form-control"></div>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
+                    <input type="text" id="schoolName" class="form-control" placeholder="उदा. MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">पंचायत का नाम</label>
+                    <input type="text" id="gpName" class="form-control" placeholder="उदा. पांचवा">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">संस्था प्रधान का नाम</label>
+                    <input type="text" id="principalName" class="form-control">
+                </div>
             </div>
             <div class="row g-2">
-                <div class="col-md-3"><label class="form-label fw-bold">MDM प्रभारी का नाम</label><input type="text" id="inchargeName" class="form-control"></div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">MDM क्रमांक</label>
+                    <input type="text" id="schoolCode" class="form-control" placeholder="उदा. 402846">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
+                    <input type="text" id="inchargeName" class="form-control">
+                </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold">वर्ष का चयन</label>
                     <select id="yearSelect" class="form-select">
@@ -68,7 +93,7 @@
                         <option value="2027">2027</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label fw-bold">महीने का चयन</label>
                     <select id="monthSelect" class="form-select">
                         <option value="">महीना चुनें</option>
@@ -78,25 +103,31 @@
                         <option value="अक्टूबर">अक्टूबर</option><option value="नवंबर">नवंबर</option><option value="दिसंबर">दिसंबर</option>
                     </select>
                 </div>
-                <div class="col-md-2"><label class="form-label fw-bold">क्रमांक</label><input type="text" id="srNo" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label fw-bold">दिनांक चयन</label><input type="date" id="reportDate" class="form-control"></div>
+                <div class="col-md-1">
+                    <label class="form-label fw-bold">क्रमांक</label>
+                    <input type="text" id="srNo" class="form-control" placeholder="69">
+                </div>
+                <div class="col-md-1">
+                    <label class="form-label fw-bold">दिनांक</label>
+                    <input type="date" id="reportDate" class="form-control">
+                </div>
             </div>
         </div>
 
         <!-- PART 2: MDM DATA FEEDING -->
         <div class="dashboard-section">
-            <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">PART - 2 : MDM DATA FEEDING</h5>
+            <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">PART - 2 : MDM DATA FEEDING (W = गेहूं, R = चावल)</h5>
 
             <!-- CLASS 1 TO 5 -->
             <h6 class="fw-bold text-secondary">कक्षा 1 से 5 (खाद्यान्न व व्यय)</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">नामांकन (1-5)</label><input type="number" id="c15_enr" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">पिछला शेष W</label><input type="number" step="0.001" id="c15_w_op" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">पिछला शेष R</label><input type="number" step="0.001" id="c15_r_op" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त W</label><input type="number" step="0.001" id="c15_w_rec" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त R</label><input type="number" step="0.001" id="c15_r_rec" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">पकाया W</label><input type="number" step="0.001" id="c15_w_con" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">पकाया R</label><input type="number" step="0.001" id="c15_r_con" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पिछला शेष W (गेहूं)</label><input type="number" step="0.001" id="c15_w_op" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पिछला शेष R (चावल)</label><input type="number" step="0.001" id="c15_r_op" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त W (गेहूं)</label><input type="number" step="0.001" id="c15_w_rec" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="number" step="0.001" id="c15_r_rec" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पकाया W (गेहूं)</label><input type="number" step="0.001" id="c15_w_con" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="number" step="0.001" id="c15_r_con" class="form-control calc-trigger"></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W</label><input type="number" id="c15_w_rem" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R</label><input type="number" id="c15_r_rem" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (1-5)</label><input type="number" id="c15_ben" class="form-control field-locked" readonly></div>
@@ -130,7 +161,7 @@
             </div>
 
             <!-- MILK & SUGAR SECTION -->
-            <h6 class="fw-bold text-secondary border-top pt-2">बाल गोपाल दुग्ध योजना</h6>
+            <h6 class="fw-bold text-secondary border-top pt-2">पन्नाधाय बाल गोपाल दुग्ध योजना</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">दूध लाभांवित (1-5)</label><input type="number" id="m_ben_15" class="form-control calc-trigger"></div>
                 <div class="col-md-2"><label class="form-label">दूध लाभांवित (6-8)</label><input type="number" id="m_ben_68" class="form-control calc-trigger"></div>
@@ -144,36 +175,44 @@
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (1-5)</label><input type="number" id="m_rem_15" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (6-8)</label><input type="number" id="m_rem_68" class="form-control field-locked" readonly></div>
                 
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 उपयोग चीनी (1-5) gm</label><input type="number" id="s_con_15" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 उपयोग चीनी (6-8) gm</label><input type="number" id="s_con_68" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (1-5) ग्राम</label><input type="number" id="s_con_15" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (6-8) ग्राम</label><input type="number" id="s_con_68" class="form-control field-locked" readonly></div>
                 
-                <div class="col-md-3 bg-warning-subtle p-2 rounded border border-warning">
-                    <label class="form-label fw-bold text-dark">चीनी की दर (₹ प्रति ग्राम)</label>
-                    <input type="number" step="0.001" id="sugar_rate" class="form-control calc-trigger" placeholder="e.g. 0.04">
-                    <small class="text-muted d-block mt-1">(यह कॉलम केवल गणना हेतु है, PDF में नहीं छपेगा)</small>
+                <div class="col-md-4 bg-warning-subtle p-2 rounded border border-warning">
+                    <label class="form-label fw-bold text-dark">चीनी की दर (₹ प्रति किग्रा)</label>
+                    <input type="number" step="0.01" id="sugar_rate" class="form-control calc-trigger" placeholder="उदा. 40">
+                    <small class="text-danger d-block mt-1">* यह कॉलम केवल गणना हेतु है, PDF में नहीं छपेगा</small>
                 </div>
-                <div class="col-md-3"><label class="form-label text-danger fw-bold">🔒 बाल गोपाल खर्च राशि (₹)</label><input type="number" id="bg_exp_tot" class="form-control field-locked" readonly></div>
             </div>
 
-            <!-- COOK CUM HELPER & BAL GOPAL FINANCIALS -->
-            <h6 class="fw-bold text-secondary border-top pt-2">कुककम हेल्पर व वित्तीय शेष</h6>
+            <!-- BAL GOPAL FINANCIAL SUMMARY (HELPER, SUGAR, GAS) -->
+            <h6 class="fw-bold text-secondary border-top pt-2">बाल गोपाल योजना (पिछला अवशेष / प्राप्त / खर्च / अवशेष राशि)</h6>
             <div class="row g-2 mb-3">
-                <div class="col-md-2"><label class="form-label">हेल्पर संख्या</label><input type="number" id="helper_cnt" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष (कुककम)</label><input type="number" id="bg_op_h" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष (चीनी)</label><input type="number" id="bg_op_s" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष (गैस)</label><input type="number" id="bg_op_g" class="form-control calc-trigger"></div>
+                
+                <div class="col-md-2"><label class="form-label">प्राप्त राशि (कुककम)</label><input type="number" id="bg_rec_h" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त राशि (चीनी)</label><input type="number" id="bg_rec_s" class="form-control calc-trigger"></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त राशि (गैस)</label><input type="number" id="bg_rec_g" class="form-control calc-trigger"></div>
+
+                <div class="col-md-2"><label class="form-label">खर्च राशि (कुककम)</label><input type="number" id="bg_exp_h" class="form-control calc-trigger" value="500"></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च राशि (चीनी)</label><input type="number" id="bg_exp_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label">खर्च राशि (गैस)</label><input type="number" id="bg_exp_g" class="form-control calc-trigger"></div>
+
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष राशि (कुककम)</label><input type="number" id="bg_rem_h" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष राशि (चीनी)</label><input type="number" id="bg_rem_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष राशि (गैस)</label><input type="number" id="bg_rem_g" class="form-control field-locked" readonly></div>
+            </div>
+
+            <!-- COOK CUM HELPER SECTION -->
+            <h6 class="fw-bold text-secondary border-top pt-2">कार्यरत कुककम हेल्पर की विवरण</h6>
+            <div class="row g-2 mb-3">
+                <div class="col-md-2"><label class="form-label">कार्यरत कुककम हेल्पर संख्या</label><input type="number" id="helper_cnt" class="form-control calc-trigger"></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 मांग राशि (₹)</label><input type="number" id="helper_dem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label">बकाया राशि (₹)</label><input type="number" id="helper_due" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label">स्वास्थ्य परीक्षण संख्या</label><input type="number" id="health_cnt" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label">बीमा संख्या</label><input type="number" id="ins_cnt" class="form-control"></div>
-            </div>
-
-            <!-- BAL GOPAL FINANCIAL SUMMARY -->
-            <h6 class="fw-bold text-secondary">बाल गोपाल योजना राशि स्थिति</h6>
-            <div class="row g-2 mb-3">
-                <div class="col-md-2"><label class="form-label">बाल गोपाल पिछला शेष</label><input type="number" id="bg_op" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label">बाल गोपाल प्राप्त राशि</label><input type="number" id="bg_rec" class="form-control calc-trigger"></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 बाल गोपाल अवशेष राशि</label><input type="number" id="bg_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label">हेल्पर अवशेष (₹)</label><input type="number" id="bal_helper" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label">चीनी अवशेष (₹)</label><input type="number" id="bal_sugar" class="form-control"></div>
-                <div class="col-md-2"><label class="form-label">गैस अवशेष (₹)</label><input type="number" id="bal_gas" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">पिछली बकाया राशि (यदि कोई हो)</label><input type="number" id="helper_due" class="form-control"></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 स्वास्थ्य परीक्षण संख्या</label><input type="number" id="health_cnt" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 बीमा संख्या</label><input type="number" id="ins_cnt" class="form-control field-locked" readonly></div>
             </div>
         </div>
 
@@ -185,28 +224,43 @@
     </form>
 </div>
 
-<!-- PRINTABLE TEMPLATE (PDF FORMAT MATCHED) -->
+<!-- PRINTABLE TEMPLATE (PDF FORMAT EXCLUSIVELY MATCHED) -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
-        <div class="text-center mb-2">
-            <h6 class="fw-bold mb-0" style="font-size: 11px;">OFFICE - <span id="pSchoolTitle"></span> (<span id="pSchoolCode"></span>)</h6>
-            <h5 class="fw-bold text-decoration-underline my-1" style="font-size: 13px;">MDM मासिक प्रगति रिपोर्ट</h5>
-            <div class="d-flex justify-content-between px-2 fw-bold" style="font-size: 10px;">
-                <span>दिनांक: <span id="pReportDate"></span></span>
-                <span>क्रमांक: <span id="pSrNo"></span></span>
-                <span>माह का नाम: <span id="pMonthYear"></span></span>
+        <!-- HEADER TITLE -->
+        <div class="text-center mb-1">
+            <h5 class="fw-bold mb-1" style="font-size: 13px; text-transform: uppercase;">
+                OFFICE - <span id="pSchoolTitle"></span>(<span id="pSchoolCode"></span>)
+            </h5>
+            <div class="d-flex justify-content-between align-items-center px-1 fw-bold" style="font-size: 10px;">
+                <span style="width: 25%; text-align: left;">क्रमांक - <span id="pSrNo"></span></span>
+                <span style="width: 50%; text-align: center; font-size: 11px;">**MDM मासिक प्रगति रिपोर्ट**</span>
+                <span style="width: 25%; text-align: right;">दिनांक - <span id="pReportDate"></span></span>
             </div>
         </div>
 
-        <div class="fw-bold text-end" style="font-size: 9px;">माह का नाम & - कक्षा 1 से 5 के लिए</div>
+        <!-- TABLE 1: CLASS 1 TO 5 -->
         <table class="table-custom">
             <thead>
-                <tr>
-                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 1-5</th>
-                    <th colspan="2">पिछले माह का अवशेष</th><th colspan="2">इस माह में सप्लायर से प्राप्त</th><th colspan="2">कक्षा 1 से 5 के लिए पकाया गया खाद्यान्न</th><th colspan="2">अवशेष</th>
-                    <th rowspan="2">लाभांवित संख्या</th><th rowspan="2">व्यय राशि</th>
+                <tr class="section-header-yellow">
+                    <td colspan="3">माह का नाम – <span id="pMonthYear1"></span></td>
+                    <td colspan="11">कक्षा 1 से 5 के लिए</td>
                 </tr>
-                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+                <tr>
+                    <th rowspan="2" style="width:30px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:60px;">ग्राम पंचायत</th>
+                    <th rowspan="2">विद्यालय का नाम</th>
+                    <th rowspan="2" style="width:40px;">नामांकन 1 से 5</th>
+                    <th colspan="2">पिछले माह का अवशेष</th>
+                    <th colspan="2">इस माह में प्राप्त सप्लायर से प्राप्त</th>
+                    <th colspan="2">कक्षा 1 से 5 के लिए पकाया गया खाद्यान्न</th>
+                    <th colspan="2">अवशेष</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
+                </tr>
+                <tr>
+                    <th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -219,15 +273,28 @@
             </tbody>
         </table>
 
-        <div class="fw-bold text-end" style="font-size: 9px;">माह का नाम & - कक्षा 6 से 8 के लिए</div>
+        <!-- TABLE 2: CLASS 6 TO 8 -->
         <table class="table-custom">
             <thead>
-                <tr>
-                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 6-8</th>
-                    <th colspan="2">पिछले माह का अवशेष</th><th colspan="2">इस माह में सप्लायर से प्राप्त</th><th colspan="2">कक्षा 6 से 8 के लिए पकाया गया खाद्यान्न</th><th colspan="2">अवशेष</th>
-                    <th rowspan="2">लाभांवित संख्या</th><th rowspan="2">व्यय राशि</th>
+                <tr class="section-header-yellow">
+                    <td colspan="3">माह का नाम – <span id="pMonthYear2"></span></td>
+                    <td colspan="11">कक्षा 6 से 8 के लिए</td>
                 </tr>
-                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+                <tr>
+                    <th rowspan="2" style="width:30px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:60px;">ग्राम पंचायत</th>
+                    <th rowspan="2">विद्यालय का नाम</th>
+                    <th rowspan="2" style="width:40px;">नामांकन 6 से 8</th>
+                    <th colspan="2">पिछले माह का अवशेष</th>
+                    <th colspan="2">इस माह में प्राप्त सप्लायर से प्राप्त</th>
+                    <th colspan="2">कक्षा 6 से 8 के लिए पकाया गया खाद्यान्न</th>
+                    <th colspan="2">अवशेष</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
+                </tr>
+                <tr>
+                    <th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -240,14 +307,25 @@
             </tbody>
         </table>
 
-        <div class="fw-bold text-start" style="font-size: 9px;">योग कक्षा 01 से 08 तक का योग (RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिए)</div>
+        <!-- TABLE 3: TOTAL 1 TO 8 -->
         <table class="table-custom">
             <thead>
-                <tr>
-                    <th rowspan="2">नामांकन 1-8</th><th colspan="2">पिछले माह का अवशेष</th><th colspan="2">इस माह में सप्लायर से प्राप्त</th>
-                    <th colspan="2">कक्षा 1 से 8 के लिए पकाया गया खाद्यान्न</th><th colspan="2">अवशेष</th><th rowspan="2">लाभांवित संख्या</th><th rowspan="2">व्यय राशि</th>
+                <tr class="section-header-yellow">
+                    <td colspan="3">योग कक्षा 01 से 08 तक का योग<br><small style="font-size: 8px; font-weight: normal; color: red;">(RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिये)</small></td>
+                    <td colspan="11"></td>
                 </tr>
-                <tr><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th><th>W</th><th>R</th></tr>
+                <tr>
+                    <th rowspan="2" style="width:40px;">नामांकन 1 से 8</th>
+                    <th colspan="2">पिछले माह का अवशेष</th>
+                    <th colspan="2">इस माह में प्राप्त सप्लायर से प्राप्त</th>
+                    <th colspan="2">कक्षा 1 से 8 के लिए पकाया गया खाद्यान्न</th>
+                    <th colspan="2">अवशेष</th>
+                    <th rowspan="2" style="width:45px;">लाभांवित संख्या</th>
+                    <th rowspan="2" style="width:50px;">व्यय राशि</th>
+                </tr>
+                <tr>
+                    <th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th><th>गेहूं</th><th>चावल</th>
+                </tr>
             </thead>
             <tbody>
                 <tr class="fw-bold">
@@ -259,16 +337,32 @@
             </tbody>
         </table>
 
-        <div class="fw-bold text-start" style="font-size: 9px;">माह का नाम & - पन्नाधाय बाल गोपाल दुग्ध योजना जमा करायी गयी व खर्च राशि की सूचना</div>
+        <!-- TABLE 4: BAL GOPAL MILK PLAN -->
         <table class="table-custom">
             <thead>
-                <tr>
-                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th>
-                    <th colspan="2">लाभांवित बच्चों की संख्या भरें</th><th colspan="2">पिछले माह का अवशेष पाउडर मिल्क (किग्रा)</th>
-                    <th colspan="2">इस माह सप्लायर से प्राप्त पाउडर मिल्क (किग्रा)</th><th colspan="2">इस माह खर्च पाउडर मिल्क (किग्रा)</th>
-                    <th colspan="2">अवशेष पाउडर मिल्क (किग्रा)</th><th colspan="2">उपयोग की गयी चीनी की मात्रा (ग्राम में)</th>
+                <tr class="section-header-yellow">
+                    <td colspan="3">माह का नाम – <span id="pMonthYear3"></span></td>
+                    <td colspan="12">पन्नाधाय बाल गोपाल दुग्ध योजना</td>
                 </tr>
-                <tr><th>Class 1 to 5</th><th>Class 6 to 8</th><th>Class 1 to 5</th><th>Class 6 to 8</th><th>Class 1 to 5</th><th>Class 6 to 8</th><th>Class 1 to 5</th><th>Class 6 to 8</th><th>Class 1 to 5</th><th>Class 6 to 8</th><th>Class 1 to 5</th><th>Class 6 to 8</th></tr>
+                <tr>
+                    <th rowspan="2" style="width:25px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:55px;">ग्राम पंचायत</th>
+                    <th rowspan="2">विद्यालय का नाम</th>
+                    <th colspan="2">लाभांवित बच्चों की संख्या भरे</th>
+                    <th colspan="2">पिछले माह का अवशेष पाउडर मिल्क (किग्रा)</th>
+                    <th colspan="2">इस माह सप्लायर से प्राप्त पाउडर मिल्क (किग्रा)</th>
+                    <th colspan="2">इस माह खर्च पाउडर मिल्क (किग्रा)</th>
+                    <th colspan="2">अवशेष पाउडर मिल्क (किग्रा)</th>
+                    <th colspan="2">उपयोग की गयी चीनी की मात्रा (ग्राम में)</th>
+                </tr>
+                <tr>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                    <th>Class 1 to 5</th><th>Class 6 to 8</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -283,48 +377,93 @@
             </tbody>
         </table>
 
-        <div class="fw-bold text-start" style="font-size: 9px;">माह का नाम & - बाल गोपाल योजना में पिछले माह अवशेष / प्राप्त / खर्च / अवशेष राशि</div>
+        <!-- TABLE 5: BAL GOPAL FINANCIAL DETAILS -->
         <table class="table-custom">
             <thead>
+                <tr class="section-header-yellow">
+                    <td colspan="3">माह का नाम – <span id="pMonthYear4"></span></td>
+                    <td colspan="12">बाल गोपाल दुग्ध योजना जमा कराीय गयी व खर्च राशि की सूचना</td>
+                </tr>
                 <tr>
-                    <th>क्र. सं.</th><th>ग्राम पंचायत</th><th>विद्यालय का नाम</th><th>बाल गोपाल योजना में पिछले माह अवशेष</th><th>बाल गोपाल योजना में इस माह में प्राप्त राशि</th><th>बाल गोपाल योजना में खर्च की गयी राशि</th><th>बाल गोपाल योजना में अवशेष राशि</th>
+                    <th rowspan="2" style="width:25px;">क्र. सं.</th>
+                    <th rowspan="2" style="width:55px;">ग्राम पंचायत</th>
+                    <th rowspan="2">विद्यालय का नाम</th>
+                    <th colspan="3">बाल गोपाल योजना में पिछले माह अवशेष</th>
+                    <th colspan="3">बाल गोपाल योजना में इस माह में प्राप्त राशि</th>
+                    <th colspan="3">बाल गोपाल योजना में खर्च की गयी राशि</th>
+                    <th colspan="3">बाल गोपाल योजना में अवशेष राशि</th>
+                </tr>
+                <tr>
+                    <th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th>
+                    <th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th>
+                    <th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th>
+                    <th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td id="pSr4"></td><td id="pGp4"></td><td id="pSch4"></td>
-                    <td id="p_bg_op"></td><td id="p_bg_rec"></td><td id="p_bg_exp"></td><td id="p_bg_rem"></td>
+                    <td id="p_bg_op_h"></td><td id="p_bg_op_s"></td><td id="p_bg_op_g"></td>
+                    <td id="p_bg_rec_h"></td><td id="p_bg_rec_s"></td><td id="p_bg_rec_g"></td>
+                    <td id="p_bg_exp_h"></td><td id="p_bg_exp_s"></td><td id="p_bg_exp_g"></td>
+                    <td id="p_bg_rem_h"></td><td id="p_bg_rem_s"></td><td id="p_bg_rem_g"></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="fw-bold text-start" style="font-size: 9px;">माह का नाम & - कार्यरत कुककम हेल्पर की विद्यालय वार सूचना</div>
+        <!-- TABLE 6: COOK CUM HELPER DETAILS -->
         <table class="table-custom">
             <thead>
-                <tr>
-                    <th rowspan="2">क्र. सं.</th><th rowspan="2">ग्राम पंचायत</th><th rowspan="2">विद्यालय का नाम</th><th rowspan="2">नामांकन 1 से 8</th><th rowspan="2">कार्यरत कुककम हेल्पर की संख्या</th><th rowspan="2">इस माह की कुककम हेल्पर की मांग राशि</th><th rowspan="2">यदि कोई इस माह के अतिरिक्त पिछली कोई बकाया राशि हो तो लिखें</th><th rowspan="2">स्वास्थ्य परीक्षण करवाया हुआ है संख्या लिखें</th><th rowspan="2">बीमा करवाया हुआ है संख्या लिखें</th>
-                    <th colspan="3">अवशेष राशि (पिछले माह का शेष + प्राप्त) - खर्च</th><th colspan="3">अवशेष राशि</th>
+                <tr class="section-header-yellow">
+                    <td colspan="3">माह का नाम – <span id="pMonthYear5"></span></td>
+                    <td colspan="6">कार्यरत कुककम हेल्पर की विद्यालय वार सूचना</td>
                 </tr>
-                <tr><th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th><th>कुककम हेल्पर</th><th>चीनी</th><th>गैस</th></tr>
+                <tr>
+                    <th style="width:25px;">क्र. सं.</th>
+                    <th style="width:55px;">ग्राम पंचायत</th>
+                    <th>विद्यालय का नाम</th>
+                    <th style="width:45px;">नामांकन 1 से 8</th>
+                    <th style="width:65px;">कार्यरत कुककम हेल्पर की संख्या</th>
+                    <th style="width:75px;">इस माह की कुककम हेल्पर की मांग राशि</th>
+                    <th>यदि कोई इस माह के अतिरिक्त पिछली कोई बकाया राशि हो तो लिखे</th>
+                    <th style="width:75px;">स्वास्थ्य परीक्षण करवाया हुआ है संख्या लिखें</th>
+                    <th style="width:75px;">बीमा करवाया हुआ है संख्या लिखें</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
                     <td id="pSr5"></td><td id="pGp5"></td><td id="pSch5"></td>
-                    <td id="p_tot_enr2"></td><td id="p_h_cnt"></td><td id="p_h_dem"></td><td id="p_h_due"></td><td id="p_hlth"></td><td id="p_ins"></td>
-                    <td>-3500.00</td><td>249.31</td><td>-1369.00</td><td id="p_bal_h"></td><td id="p_bal_s"></td><td id="p_bal_g"></td>
+                    <td id="p_tot_enr2"></td>
+                    <td id="p_h_cnt"></td>
+                    <td id="p_h_dem"></td>
+                    <td id="p_h_due"></td>
+                    <td id="p_hlth"></td>
+                    <td id="p_ins"></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="row mt-3 pt-2" style="font-size: 10px;">
-            <div class="col-6 text-center fw-bold"><p>हस्ताक्षर पोषाहार प्रभारी (<span id="pIncharge"></span>)</p></div>
-            <div class="col-6 text-center fw-bold"><p>हस्ताक्षर संस्था प्रधान (मय सील)<br>(<span id="pPrincipal"></span>)</p></div>
+        <!-- SIGNATURE AREA -->
+        <div class="row mt-4 pt-3" style="font-size: 10px;">
+            <div class="col-6 text-center fw-bold">
+                <p>हस्ताक्षर पोषाहार प्रभारी</p>
+            </div>
+            <div class="col-6 text-center fw-bold">
+                <p>हस्ताक्षर संस्था प्रधान</p>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-// Auto Calculation Listener
+// Prevent Mouse Scroll Wheel from changing values in numeric input fields
+document.addEventListener('wheel', function(event) {
+    if (document.activeElement.type === 'number') {
+        document.activeElement.blur();
+    }
+});
+
+// Auto Calculation Event Trigger
 document.querySelectorAll('.calc-trigger').forEach(input => {
     input.addEventListener('input', runCalculations);
 });
@@ -398,45 +537,89 @@ function runCalculations() {
     document.getElementById('s_con_15').value = s_con_15.toFixed(1);
     document.getElementById('s_con_68').value = s_con_68.toFixed(1);
 
-    // Sugar Rate & Bal Gopal Exp
+    // Sugar Cost Calculation (gram / 1000 * rate)
     const sugar_rate = parseFloat(document.getElementById('sugar_rate').value) || 0;
-    const bg_exp = 500 + ((s_con_15 + s_con_68) * sugar_rate);
-    document.getElementById('bg_exp_tot').value = bg_exp.toFixed(2);
+    const tot_sugar_gm = s_con_15 + s_con_68;
+    const bg_sugar_exp = (tot_sugar_gm / 1000) * sugar_rate;
+    document.getElementById('bg_exp_s').value = bg_sugar_exp.toFixed(2);
 
-    // Bal Gopal Remainder
-    const bg_op = parseFloat(document.getElementById('bg_op').value) || 0;
-    const bg_rec = parseFloat(document.getElementById('bg_rec').value) || 0;
-    document.getElementById('bg_rem').value = ((bg_op + bg_rec) - bg_exp).toFixed(2);
+    // Bal Gopal Financial Calculations
+    const bg_op_h = parseFloat(document.getElementById('bg_op_h').value) || 0;
+    const bg_op_s = parseFloat(document.getElementById('bg_op_s').value) || 0;
+    const bg_op_g = parseFloat(document.getElementById('bg_op_g').value) || 0;
 
-    // Helper Demand
+    const bg_rec_h = parseFloat(document.getElementById('bg_rec_h').value) || 0;
+    const bg_rec_s = parseFloat(document.getElementById('bg_rec_s').value) || 0;
+    const bg_rec_g = parseFloat(document.getElementById('bg_rec_g').value) || 0;
+
+    const bg_exp_h = parseFloat(document.getElementById('bg_exp_h').value) || 0;
+    const bg_exp_g = parseFloat(document.getElementById('bg_exp_g').value) || 0;
+
+    document.getElementById('bg_rem_h').value = ((bg_op_h + bg_rec_h) - bg_exp_h).toFixed(2);
+    document.getElementById('bg_rem_s').value = ((bg_op_s + bg_rec_s) - bg_sugar_exp).toFixed(2);
+    document.getElementById('bg_rem_g').value = ((bg_op_g + bg_rec_g) - bg_exp_g).toFixed(2);
+
+    // Cook Cum Helper Calculations
     const helper_cnt = parseFloat(document.getElementById('helper_cnt').value) || 0;
     document.getElementById('helper_dem').value = helper_cnt * 2467;
+    document.getElementById('health_cnt').value = helper_cnt;
+    document.getElementById('ins_cnt').value = helper_cnt;
+}
+
+// Function to Shorten School Name up to word SCHOOL
+function formatShortSchoolName(fullName) {
+    if (!fullName) return '';
+    let upperName = fullName.trim().toUpperCase();
+    let schoolIdx = upperName.indexOf("SCHOOL");
+    
+    if (schoolIdx !== -1) {
+        let prefixPart = upperName.substring(0, schoolIdx).trim();
+        let remainingPart = upperName.substring(schoolIdx).trim();
+        
+        let words = prefixPart.split(/\s+/);
+        let abbreviated = words.map(w => w.charAt(0) + '.').join(' ');
+        return abbreviated + ' ' + remainingPart;
+    }
+    return fullName;
+}
+
+// Format Date string to dd-mm-yyyy
+function formatDateStr(dateVal) {
+    if (!dateVal) return '';
+    let parts = dateVal.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    }
+    return dateVal;
 }
 
 function printReport() {
     runCalculations();
 
-    // Map Header Info
+    // Mapping Header Info
     const month = document.getElementById('monthSelect').value;
     const year = document.getElementById('yearSelect').value;
-    document.getElementById('pMonthYear').innerText = (month && year) ? `${month} ${year}` : '';
-    document.getElementById('pSchoolTitle').innerText = document.getElementById('schoolName').value;
+    const monthYearStr = (month && year) ? `${month} ${year}` : '';
+
+    ['1','2','3','4','5'].forEach(i => {
+        document.getElementById('pMonthYear' + i).innerText = monthYearStr;
+    });
+
+    const fullSchoolName = document.getElementById('schoolName').value;
+    document.getElementById('pSchoolTitle').innerText = fullSchoolName;
     document.getElementById('pSchoolCode').innerText = document.getElementById('schoolCode').value;
-    document.getElementById('pReportDate').innerText = document.getElementById('reportDate').value;
+    document.getElementById('pReportDate').innerText = formatDateStr(document.getElementById('reportDate').value);
     document.getElementById('pSrNo').innerText = document.getElementById('srNo').value;
     
     const sr = document.getElementById('srNo').value;
     const gp = document.getElementById('gpName').value;
-    const sch = document.getElementById('schoolName').value;
+    const shortSchool = formatShortSchoolName(fullSchoolName);
 
     ['1','2','3','4','5'].forEach(i => {
         document.getElementById('pSr'+i).innerText = sr;
         document.getElementById('pGp'+i).innerText = gp;
-        document.getElementById('pSch'+i).innerText = sch;
+        document.getElementById('pSch'+i).innerText = shortSchool;
     });
-
-    document.getElementById('pIncharge').innerText = document.getElementById('inchargeName').value;
-    document.getElementById('pPrincipal').innerText = document.getElementById('principalName').value;
 
     // Map 1-5 Values
     document.getElementById('p_c15_enr').innerText = document.getElementById('c15_enr').value;
@@ -500,23 +683,31 @@ function printReport() {
     document.getElementById('p_sc_15').innerText = document.getElementById('s_con_15').value;
     document.getElementById('p_sc_68').innerText = document.getElementById('s_con_68').value;
 
-    // Map Bal Gopal Financials
-    document.getElementById('p_bg_op').innerText = document.getElementById('bg_op').value;
-    document.getElementById('p_bg_rec').innerText = document.getElementById('bg_rec').value;
-    document.getElementById('p_bg_exp').innerText = document.getElementById('bg_exp_tot').value;
-    document.getElementById('p_bg_rem').innerText = document.getElementById('bg_rem').value;
+    // Map Bal Gopal Financial Breakdown
+    document.getElementById('p_bg_op_h').innerText = document.getElementById('bg_op_h').value;
+    document.getElementById('p_bg_op_s').innerText = document.getElementById('bg_op_s').value;
+    document.getElementById('p_bg_op_g').innerText = document.getElementById('bg_op_g').value;
 
-    // Map Helper & Balance
+    document.getElementById('p_bg_rec_h').innerText = document.getElementById('bg_rec_h').value;
+    document.getElementById('p_bg_rec_s').innerText = document.getElementById('bg_rec_s').value;
+    document.getElementById('p_bg_rec_g').innerText = document.getElementById('bg_rec_g').value;
+
+    document.getElementById('p_bg_exp_h').innerText = document.getElementById('bg_exp_h').value;
+    document.getElementById('p_bg_exp_s').innerText = document.getElementById('bg_exp_s').value;
+    document.getElementById('p_bg_exp_g').innerText = document.getElementById('bg_exp_g').value;
+
+    document.getElementById('p_bg_rem_h').innerText = document.getElementById('bg_rem_h').value;
+    document.getElementById('p_bg_rem_s').innerText = document.getElementById('bg_rem_s').value;
+    document.getElementById('p_bg_rem_g').innerText = document.getElementById('bg_rem_g').value;
+
+    // Map Helper Details
     document.getElementById('p_h_cnt').innerText = document.getElementById('helper_cnt').value;
     document.getElementById('p_h_dem').innerText = document.getElementById('helper_dem').value;
     document.getElementById('p_h_due').innerText = document.getElementById('helper_due').value;
     document.getElementById('p_hlth').innerText = document.getElementById('health_cnt').value;
     document.getElementById('p_ins').innerText = document.getElementById('ins_cnt').value;
-    document.getElementById('p_bal_h').innerText = document.getElementById('bal_helper').value;
-    document.getElementById('p_bal_s').innerText = document.getElementById('bal_sugar').value;
-    document.getElementById('p_bal_g').innerText = document.getElementById('bal_gas').value;
 
-    // Print Execution
+    // Execute Printing
     const element = document.getElementById('pdfTemplate');
     element.style.display = 'block';
     window.print();
