@@ -31,13 +31,13 @@
             font-weight: bold;
         }
 
-        /* PDF Printable Table Design Exact Match */
+        /* Printable Area - Matching Uploaded Image */
         .printable-area { background: #fff; padding: 10px; color: #000; font-family: Arial, sans-serif; }
         
         .table-custom { 
-            border: 1px solid #000 !important; 
+            border: 1.5px solid #000 !important; 
             width: 100%; 
-            margin-bottom: 5px; 
+            margin-bottom: 6px; 
             border-collapse: collapse; 
             table-layout: fixed; 
         }
@@ -47,7 +47,7 @@
             padding: 3px 2px; 
             text-align: center; 
             vertical-align: middle; 
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             word-wrap: break-word;
             white-space: normal; /* Text Wrap Enabled */
@@ -56,12 +56,12 @@
         .section-header-yellow {
             background-color: #ffff00 !important;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11.5px;
             color: #000;
         }
 
         @media print {
-            @page { size: A4 landscape; margin: 5mm; }
+            @page { size: A4 landscape; margin: 4mm; }
             body * { visibility: hidden; }
             #pdfTemplate, #pdfTemplate * { visibility: visible; }
             #pdfTemplate { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
@@ -81,11 +81,11 @@
             <div class="row g-2 mb-2">
                 <div class="col-md-5">
                     <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
-                    <input type="text" id="schoolName" class="form-control" required placeholder="MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
+                    <input type="text" id="schoolName" class="form-control" required placeholder="उदा. MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">पंचायत का नाम</label>
-                    <input type="text" id="gpName" class="form-control" required placeholder="पांचवा">
+                    <input type="text" id="gpName" class="form-control" required placeholder="उदा. पांचवा">
                 </div>
                 <div class="col-md-4">
                     <label class="form-label fw-bold">संस्था प्रधान का नाम</label>
@@ -95,7 +95,7 @@
             <div class="row g-2">
                 <div class="col-md-3">
                     <label class="form-label fw-bold">MDM क्रमांक</label>
-                    <input type="text" id="schoolCode" class="form-control" required placeholder="402846">
+                    <input type="text" id="schoolCode" class="form-control" required placeholder="उदा. 104 या 402846">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
@@ -138,14 +138,14 @@
             <h6 class="fw-bold text-secondary">कक्षा 1 से 5 (खाद्यान्न व व्यय)</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">नामांकन (1-5)</label><input type="number" id="c15_enr" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष W</label><input type="number" step="0.001" id="c15_w_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष R</label><input type="number" step="0.001" id="c15_r_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त W</label><input type="number" step="0.001" id="c15_w_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त R</label><input type="number" step="0.001" id="c15_r_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया W</label><input type="number" step="0.001" id="c15_w_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया R</label><input type="number" step="0.001" id="c15_r_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W</label><input type="number" id="c15_w_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R</label><input type="number" id="c15_r_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष W (गेहूँ)</label><input type="number" step="0.001" id="c15_w_op" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष R (चावल)</label><input type="number" step="0.001" id="c15_r_op" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त W (गेहूँ)</label><input type="number" step="0.001" id="c15_w_rec" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="number" step="0.001" id="c15_r_rec" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया W (गेहूँ)</label><input type="number" step="0.001" id="c15_w_con" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="number" step="0.001" id="c15_r_con" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="number" id="c15_w_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="number" id="c15_r_rem" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (1-5)</label><input type="number" id="c15_ben" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="number" id="c15_exp" class="form-control field-locked" readonly></div>
             </div>
@@ -154,14 +154,14 @@
             <h6 class="fw-bold text-secondary border-top pt-2">कक्षा 6 से 8 (खाद्यान्न व व्यय)</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">नामांकन (6-8)</label><input type="number" id="c68_enr" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष W</label><input type="number" step="0.001" id="c68_w_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष R</label><input type="number" step="0.001" id="c68_r_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त W</label><input type="number" step="0.001" id="c68_w_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त R</label><input type="number" step="0.001" id="c68_r_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया W</label><input type="number" step="0.001" id="c68_w_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया R</label><input type="number" step="0.001" id="c68_r_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W</label><input type="number" id="c68_w_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R</label><input type="number" id="c68_r_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_op" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष R (चावल)</label><input type="number" step="0.001" id="c68_r_op" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_rec" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="number" step="0.001" id="c68_r_rec" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_con" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="number" step="0.001" id="c68_r_con" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="number" id="c68_w_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="number" id="c68_r_rem" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (6-8)</label><input type="number" id="c68_ben" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="number" id="c68_exp" class="form-control field-locked" readonly></div>
             </div>
@@ -230,17 +230,17 @@
     </form>
 </div>
 
-<!-- PRINTABLE PDF TEMPLATE -->
+<!-- PRINTABLE PDF TEMPLATE EXACT MATCH TO IMAGE -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
         <!-- HEADER TITLE -->
         <div class="text-center mb-1">
-            <h5 class="fw-bold mb-1" style="font-size: 15px; text-transform: uppercase;">
-                OFFICE - <span id="pSchoolTitle"></span> (<span id="pSchoolCode"></span>)
+            <h5 class="fw-bold mb-1" style="font-size: 16px; text-transform: uppercase; border-bottom: 1.5px solid #000; padding-bottom: 2px; display: inline-block;">
+                OFFICE - <span id="pSchoolTitle"></span>
             </h5>
-            <div class="d-flex justify-content-between align-items-center px-1 fw-bold" style="font-size: 11px;">
+            <div class="d-flex justify-content-between align-items-center px-1 fw-bold mt-1" style="font-size: 11px;">
                 <span style="width: 25%; text-align: left;">क्रमांक - <span id="pSrNo"></span></span>
-                <span style="width: 50%; text-align: center; font-size: 13px;">**MDM मासिक प्रगति रिपोर्ट**</span>
+                <span style="width: 50%; text-align: center; font-size: 13px; color: red;">**MDM मासिक प्रगति रिपोर्ट**</span>
                 <span style="width: 25%; text-align: right;">दिनांक - <span id="pReportDate"></span></span>
             </div>
         </div>
@@ -249,7 +249,7 @@
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
-                    <td colspan="3" style="text-align: left;">माह का नाम – <span id="pMonthYear1"></span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 5px;">माह का नाम – <span id="pMonthYear1"></span></td>
                     <td colspan="11" style="text-align: center;">कक्षा 1 से 5 के लिए</td>
                 </tr>
                 <tr>
@@ -270,7 +270,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td id="pSr1"></td><td id="pGp1"></td><td id="pSch1"></td>
+                    <td id="pSchCode1"></td><td id="pGp1"></td><td id="pSch1"></td>
                     <td id="p_c15_enr"></td><td id="p_c15_w_op"></td><td id="p_c15_r_op"></td>
                     <td id="p_c15_w_rec"></td><td id="p_c15_r_rec"></td><td id="p_c15_w_con"></td>
                     <td id="p_c15_r_con"></td><td id="p_c15_w_rem"></td><td id="p_c15_r_rem"></td>
@@ -283,7 +283,7 @@
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
-                    <td colspan="3" style="text-align: left;">माह का नाम – <span id="pMonthYear2"></span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 5px;">माह का नाम – <span id="pMonthYear2"></span></td>
                     <td colspan="11" style="text-align: center;">कक्षा 6 से 8 के लिए</td>
                 </tr>
                 <tr>
@@ -304,7 +304,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td id="pSr2"></td><td id="pGp2"></td><td id="pSch2"></td>
+                    <td id="pSchCode2"></td><td id="pGp2"></td><td id="pSch2"></td>
                     <td id="p_c68_enr"></td><td id="p_c68_w_op"></td><td id="p_c68_r_op"></td>
                     <td id="p_c68_w_rec"></td><td id="p_c68_r_rec"></td><td id="p_c68_w_con"></td>
                     <td id="p_c68_r_con"></td><td id="p_c68_w_rem"></td><td id="p_c68_r_rem"></td>
@@ -317,9 +317,9 @@
         <table class="table-custom">
             <thead>
                 <tr>
-                    <th rowspan="2" colspan="3" class="text-start fw-bold" style="background-color: #ffff00; font-size: 11px; padding-left: 5px;">
+                    <th rowspan="2" colspan="3" class="text-start fw-bold" style="background-color: #ffffff; font-size: 11px; padding-left: 5px;">
                         योग कक्षा 01 से 08 तक का योग<br>
-                        <span style="color: red; font-size: 9px; font-weight: normal;">(RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिये)</span>
+                        <span style="color: red; font-size: 8.5px; font-weight: bold;">(RAJ-SIMS पर उपलब्ध स्टॉक से मिलान खाना चाहिये)</span>
                     </th>
                     <th rowspan="2" style="width:45px;">नामांकन 1 से 8</th>
                     <th colspan="2">पिछले माह का अवशेष</th>
@@ -347,7 +347,7 @@
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
-                    <td colspan="3" style="text-align: left;">माह का नाम – <span id="pMonthYear3"></span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 5px;">माह का नाम – <span id="pMonthYear3"></span></td>
                     <td colspan="12" style="text-align: center;">पन्नाधाय बाल गोपाल दुग्ध योजना</td>
                 </tr>
                 <tr>
@@ -372,7 +372,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td id="pSr3"></td><td id="pGp3"></td><td id="pSch3"></td>
+                    <td id="pSchCode3"></td><td id="pGp3"></td><td id="pSch3"></td>
                     <td id="p_mb_15"></td><td id="p_mb_68"></td>
                     <td id="p_mo_15"></td><td id="p_mo_68"></td>
                     <td id="p_mr_15"></td><td id="p_mr_68"></td>
@@ -387,7 +387,7 @@
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
-                    <td colspan="3" style="text-align: left;">माह का नाम – <span id="pMonthYear4"></span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 5px;">माह का नाम – <span id="pMonthYear4"></span></td>
                     <td colspan="12" style="text-align: center;">बाल गोपाल दुग्ध योजना जमा करायी गयी व खर्च राशि की सूचना</td>
                 </tr>
                 <tr>
@@ -408,7 +408,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td id="pSr4"></td><td id="pGp4"></td><td id="pSch4"></td>
+                    <td id="pSchCode4"></td><td id="pGp4"></td><td id="pSch4"></td>
                     <td id="p_bg_op_h"></td><td id="p_bg_op_s"></td><td id="p_bg_op_g"></td>
                     <td id="p_bg_rec_h"></td><td id="p_bg_rec_s"></td><td id="p_bg_rec_g"></td>
                     <td id="p_bg_exp_h"></td><td id="p_bg_exp_s"></td><td id="p_bg_exp_g"></td>
@@ -421,7 +421,7 @@
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
-                    <td colspan="3" style="text-align: left;">माह का नाम – <span id="pMonthYear5"></span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 5px;">माह का नाम – <span id="pMonthYear5"></span></td>
                     <td colspan="6" style="text-align: center;">कार्यरत कुककम हेल्पर की विद्यालय वार सूचना</td>
                 </tr>
                 <tr>
@@ -438,7 +438,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td id="pSr5"></td><td id="pGp5"></td><td id="pSch5"></td>
+                    <td id="pSchCode5"></td><td id="pGp5"></td><td id="pSch5"></td>
                     <td id="p_tot_enr2"></td>
                     <td id="p_h_cnt"></td>
                     <td id="p_h_dem"></td>
@@ -452,10 +452,10 @@
         <!-- SIGNATURE AREA -->
         <div class="row mt-4 pt-3" style="font-size: 11px;">
             <div class="col-6 text-center fw-bold">
-                <p>हस्ताक्षर पोषाहार प्रभारी</p>
+                <p><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
             </div>
             <div class="col-6 text-center fw-bold">
-                <p>हस्ताक्षर संस्था प्रधान</p>
+                <p><u>हस्ताक्षर संस्था प्रधान</u></p>
             </div>
         </div>
     </div>
@@ -604,17 +604,17 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     });
 
     const fullSchoolName = document.getElementById('schoolName').value;
+    const mdmCode = document.getElementById('schoolCode').value;
+
     document.getElementById('pSchoolTitle').innerText = fullSchoolName;
-    document.getElementById('pSchoolCode').innerText = document.getElementById('schoolCode').value;
     document.getElementById('pReportDate').innerText = formatDateStr(document.getElementById('reportDate').value);
     document.getElementById('pSrNo').innerText = document.getElementById('srNo').value;
     
-    const sr = document.getElementById('srNo').value;
     const gp = document.getElementById('gpName').value;
     const shortSchool = formatShortSchoolName(fullSchoolName);
 
     ['1','2','3','4','5'].forEach(i => {
-        document.getElementById('pSr'+i).innerText = sr;
+        document.getElementById('pSchCode'+i).innerText = mdmCode;
         document.getElementById('pGp'+i).innerText = gp;
         document.getElementById('pSch'+i).innerText = shortSchool;
     });
