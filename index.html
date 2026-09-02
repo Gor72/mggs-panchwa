@@ -8,50 +8,6 @@
     <style>
         body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; }
         
-        /* Dynamic Glow & Color Shift for Part 1 Notice */
-        .glow-color-shift {
-            font-size: 13px;
-            font-weight: 700;
-            animation: colorGlow 3s infinite alternate;
-        }
-
-        @keyframes colorGlow {
-            0% {
-                color: #ff0055;
-                text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
-            }
-            33% {
-                color: #007bb5;
-                text-shadow: 0 0 8px rgba(0, 123, 181, 0.6);
-            }
-            66% {
-                color: #8a2be2;
-                text-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
-            }
-            100% {
-                color: #008000;
-                text-shadow: 0 0 8px rgba(0, 128, 0, 0.6);
-            }
-        }
-
-        /* Marquee Sliding Effect from Right */
-        .support-ticker {
-            background-color: #ff0000;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 3px 6px rgba(255,0,0,0.3);
-            margin-bottom: 20px;
-        }
-        
-        .support-ticker marquee {
-            display: block;
-            vertical-align: middle;
-        }
-
         .dashboard-card {
             border: 2px solid #0d6efd !important;
             border-radius: 8px;
@@ -70,6 +26,13 @@
             background-color: #fff3cd !important;
             border: 1px solid #ffeba2 !important;
             color: #856404;
+            font-weight: bold;
+        }
+
+        .field-na-disabled {
+            background-color: #e9ecef !important;
+            border: 1px solid #ced4da !important;
+            color: #6c757d !important;
             font-weight: bold;
         }
 
@@ -119,6 +82,51 @@
             color: #000;
         }
 
+        /* 1. Part - 1 Glow / Color Shift Effect */
+        .glow-title {
+            animation: colorShiftGlow 3s infinite alternate;
+        }
+
+        @keyframes colorShiftGlow {
+            0% {
+                color: #0d6efd;
+                text-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+            }
+            50% {
+                color: #d63384;
+                text-shadow: 0 0 12px rgba(214, 51, 132, 0.8), 0 0 20px rgba(214, 51, 132, 0.6);
+            }
+            100% {
+                color: #0dcaf0;
+                text-shadow: 0 0 15px rgba(13, 202, 240, 0.9), 0 0 25px rgba(13, 202, 240, 0.7);
+            }
+        }
+
+        /* 2. Right Side Slide-in Bright Red Support Banner */
+        .admin-support-banner {
+            position: fixed;
+            top: 20px;
+            right: -100%;
+            background: linear-gradient(135deg, #ff0000, #dc3545);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px 0 0 8px;
+            box-shadow: -4px 4px 15px rgba(255, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 13px;
+            z-index: 9999;
+            animation: slideInRight 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                right: -100%;
+            }
+            100% {
+                right: 0;
+            }
+        }
+
         @media print {
             @page { 
                 size: A4 landscape; 
@@ -145,37 +153,35 @@
 </head>
 <body class="py-3">
 
-<div class="container-fluid no-print" style="max-width: 1350px;">
-    <!-- RIGHT TO LEFT SLIDING BANNER FOR SUPPORT -->
-    <div class="support-ticker">
-        <marquee direction="left" scrollamount="6">
-            किसी भी प्रकार की तकनीक समस्या के लिए @admin - Tr Gordhan Ram , 6378212004 , #MGGS_PANCHWA के साथ सुझाव साझा करें।
-        </marquee>
-    </div>
+<!-- Floating Admin Support Banner -->
+<div class="admin-support-banner no-print">
+    کسی भी प्रकार की तकनीकी समस्या के लिए <strong>@admin - Tr Gordhan Ram</strong> , <strong>6378212004</strong> , <strong>#MGGS_PANCHWA</strong> के साथ सुझाव साझा करें।
+</div>
 
+<div class="container-fluid no-print" style="max-width: 1350px;">
     <h3 class="text-center fw-bold text-primary mb-3">MDM मासिक प्रगति रिपोर्ट डेटा पोर्टल</h3>
 
     <form id="mdmMainForm">
         <!-- PART 1: GENERAL INFO -->
         <div class="dashboard-card">
-            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
-                <h5 class="fw-bold text-primary mb-0">PART - 1 : (सामान्य जानकारी)</h5>
-                <!-- COLOR SHIFT & GLOW INSTRUCTION NOTE -->
-                <span class="glow-color-shift">
-                    * Part -1 में सामान्य जानकारियां अंग्रेजी फॉन्ट में ही भरें।
-                </span>
-            </div>
-            
+            <h5 class="fw-bold border-bottom pb-2 mb-3 glow-title">PART - 1 : (सामान्य जानकारी) <small style="font-size: 11px; font-weight: normal; color: #6c757d;">[कृपया जानकारी अंग्रेजी फॉन्ट में ही भरें]</small></h5>
             <div class="row g-2 mb-2">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
                     <input type="text" id="schoolName" class="form-control" required placeholder="उदा. MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold text-danger">स्कूल का प्रकार</label>
+                    <select id="schoolType" class="form-select border-danger fw-bold" required>
+                        <option value="UPPER PRIMARY">UPPER PRIMARY</option>
+                        <option value="PRIMARY">PRIMARY</option>
+                    </select>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">ग्राम पंचायत का नाम</label>
                     <input type="text" id="gpName" class="form-control" required placeholder="उदा. पांचवा">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label class="form-label fw-bold">संस्था प्रधान का नाम</label>
                     <input type="text" id="principalName" class="form-control" required placeholder="उदा. श्री दिनेश कुमार">
                 </div>
@@ -232,45 +238,45 @@
                 <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="number" step="0.001" id="c15_r_rec" class="form-control calc-trigger" required></div>
                 <div class="col-md-2"><label class="form-label">पकाया W (गेहूँ)</label><input type="number" step="0.001" id="c15_w_con" class="form-control calc-trigger" required></div>
                 <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="number" step="0.001" id="c15_r_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="number" id="c15_w_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="number" id="c15_r_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (1-5)</label><input type="number" id="c15_ben" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="number" id="c15_exp" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="text" id="c15_w_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="text" id="c15_r_rem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (1-5)</label><input type="text" id="c15_ben" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="text" id="c15_exp" class="form-control field-locked" readonly></div>
             </div>
 
             <!-- CLASS 6 TO 8 -->
             <h6 class="fw-bold text-secondary border-top pt-2">कक्षा 6 से 8 (खाद्यान्न व व्यय)</h6>
             <div class="row g-2 mb-3">
-                <div class="col-md-2"><label class="form-label">नामांकन (6-8)</label><input type="number" id="c68_enr" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष R (चावल)</label><input type="number" step="0.001" id="c68_r_op" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="number" step="0.001" id="c68_r_rec" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया W (गेहूँ)</label><input type="number" step="0.001" id="c68_w_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="number" step="0.001" id="c68_r_con" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="number" id="c68_w_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="number" id="c68_r_rem" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (6-8)</label><input type="number" id="c68_ben" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="number" id="c68_exp" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label">नामांकन (6-8)</label><input type="text" id="c68_enr" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष W (गेहूँ)</label><input type="text" id="c68_w_op" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष R (चावल)</label><input type="text" id="c68_r_op" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त W (गेहूँ)</label><input type="text" id="c68_w_rec" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त R (चावल)</label><input type="text" id="c68_r_rec" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया W (गेहूँ)</label><input type="text" id="c68_w_con" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label">पकाया R (चावल)</label><input type="text" id="c68_r_con" class="form-control calc-trigger c68-field" required></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष W (गेहूँ)</label><input type="text" id="c68_w_rem" class="form-control field-locked c68-field" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष R (चावल)</label><input type="text" id="c68_r_rem" class="form-control field-locked c68-field" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 लाभांवित (6-8)</label><input type="text" id="c68_ben" class="form-control field-locked c68-field" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 व्यय राशि (₹)</label><input type="text" id="c68_exp" class="form-control field-locked c68-field" readonly></div>
             </div>
 
             <!-- MILK & SUGAR SECTION -->
             <h6 class="fw-bold text-secondary border-top pt-2">पन्नाधाय बाल गोपाल दुग्ध योजना</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">दूध लाभांवित (1-5)</label><input type="number" id="m_ben_15" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">दूध लाभांवित (6-8)</label><input type="number" id="m_ben_68" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">दूध लाभांवित (6-8)</label><input type="text" id="m_ben_68" class="form-control calc-trigger c68-field" required></div>
                 <div class="col-md-2"><label class="form-label">पिछला अवशेष पाउडर (1-5)</label><input type="number" step="0.001" id="m_op_15" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">पिछला अवशेष पाउडर (6-8)</label><input type="number" step="0.001" id="m_op_68" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">पिछला अवशेष पाउडर (6-8)</label><input type="text" id="m_op_68" class="form-control calc-trigger c68-field" required></div>
                 <div class="col-md-2"><label class="form-label">प्राप्त पाउडर (1-5)</label><input type="number" step="0.001" id="m_rec_15" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label">प्राप्त पाउडर (6-8)</label><input type="number" step="0.001" id="m_rec_68" class="form-control calc-trigger" required></div>
+                <div class="col-md-2"><label class="form-label">प्राप्त पाउडर (6-8)</label><input type="text" id="m_rec_68" class="form-control calc-trigger c68-field" required></div>
 
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च पाउडर (1-5)</label><input type="number" id="m_con_15" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च पाउडर (6-8)</label><input type="number" id="m_con_68" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (1-5)</label><input type="number" id="m_rem_15" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (6-8)</label><input type="number" id="m_rem_68" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च पाउडर (1-5)</label><input type="text" id="m_con_15" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च पाउडर (6-8)</label><input type="text" id="m_con_68" class="form-control field-locked c68-field" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (1-5)</label><input type="text" id="m_rem_15" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष पाउडर (6-8)</label><input type="text" id="m_rem_68" class="form-control field-locked c68-field" readonly></div>
                 
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (1-5) ग्राम</label><input type="number" id="s_con_15" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (6-8) ग्राम</label><input type="number" id="s_con_68" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (1-5) ग्राम</label><input type="text" id="s_con_15" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 चीनी (6-8) ग्राम</label><input type="text" id="s_con_68" class="form-control field-locked c68-field" readonly></div>
                 
                 <div class="col-md-4 bg-warning-subtle p-2 rounded border border-warning">
                     <label class="form-label fw-bold text-dark">चीनी की दर (₹ प्रति किग्रा)</label>
@@ -289,23 +295,23 @@
                 <div class="col-md-2"><label class="form-label">प्राप्त राशि (चीनी)</label><input type="number" id="bg_rec_s" class="form-control calc-trigger" required></div>
                 <div class="col-md-2"><label class="form-label">प्राप्त राशि (गैस)</label><input type="number" id="bg_rec_g" class="form-control calc-trigger" required></div>
 
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (कुककम)</label><input type="number" id="bg_exp_h" class="form-control field-locked" value="500" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (चीनी)</label><input type="number" id="bg_exp_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (कुककम)</label><input type="text" id="bg_exp_h" class="form-control field-locked" value="500" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 खर्च (चीनी)</label><input type="text" id="bg_exp_s" class="form-control field-locked" readonly></div>
                 <div class="col-md-2"><label class="form-label">खर्च राशि (गैस)</label><input type="number" id="bg_exp_g" class="form-control calc-trigger" required></div>
 
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (कुककम)</label><input type="number" id="bg_rem_h" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (चीनी)</label><input type="number" id="bg_rem_s" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (गैस)</label><input type="number" id="bg_rem_g" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (कुककम)</label><input type="text" id="bg_rem_h" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (चीनी)</label><input type="text" id="bg_rem_s" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 अवशेष (गैस)</label><input type="text" id="bg_rem_g" class="form-control field-locked" readonly></div>
             </div>
 
             <!-- COOK CUM HELPER SECTION -->
             <h6 class="fw-bold text-secondary border-top pt-2">कार्यरत कुककम हेल्पर विवरण</h6>
             <div class="row g-2 mb-3">
                 <div class="col-md-2"><label class="form-label">कार्यरत कुककम संख्या</label><input type="number" id="helper_cnt" class="form-control calc-trigger" required></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 मांग राशि (₹)</label><input type="number" id="helper_dem" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 मांग राशि (₹)</label><input type="text" id="helper_dem" class="form-control field-locked" readonly></div>
                 <div class="col-md-3"><label class="form-label">पिछली बकाया राशि (यदि हो)</label><input type="number" id="helper_due" class="form-control" required value="0"></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 स्वास्थ्य परीक्षण संख्या</label><input type="number" id="health_cnt" class="form-control field-locked" readonly></div>
-                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 बीमा संख्या</label><input type="number" id="ins_cnt" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 स्वास्थ्य परीक्षण संख्या</label><input type="text" id="health_cnt" class="form-control field-locked" readonly></div>
+                <div class="col-md-2"><label class="form-label text-danger fw-bold">🔒 बीमा संख्या</label><input type="text" id="ins_cnt" class="form-control field-locked" readonly></div>
             </div>
         </div>
 
@@ -578,12 +584,42 @@ document.addEventListener('wheel', function(event) {
     }
 });
 
+// School Type Change Handler
+document.getElementById('schoolType').addEventListener('change', toggleSchoolType);
+
+function toggleSchoolType() {
+    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
+    const c68Fields = document.querySelectorAll('.c68-field');
+
+    c68Fields.forEach(field => {
+        if (isPrimary) {
+            field.value = 'लागू नही';
+            field.setAttribute('readonly', 'readonly');
+            field.setAttribute('disabled', 'disabled');
+            field.classList.add('field-na-disabled');
+        } else {
+            if (field.value === 'लागू नही') {
+                field.value = '';
+            }
+            field.removeAttribute('disabled');
+            if (!field.classList.contains('field-locked')) {
+                field.removeAttribute('readonly');
+            }
+            field.classList.remove('field-na-disabled');
+        }
+    });
+
+    runCalculations();
+}
+
 // Automatic Calculation Logic
 document.querySelectorAll('.calc-trigger').forEach(input => {
     input.addEventListener('input', runCalculations);
 });
 
 function runCalculations() {
+    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
+
     const c15_w_op = parseFloat(document.getElementById('c15_w_op').value) || 0;
     const c15_r_op = parseFloat(document.getElementById('c15_r_op').value) || 0;
     const c15_w_rec = parseFloat(document.getElementById('c15_w_rec').value) || 0;
@@ -601,47 +637,53 @@ function runCalculations() {
     document.getElementById('c15_ben').value = c15_ben;
     document.getElementById('c15_exp').value = c15_exp;
 
-    const c68_w_op = parseFloat(document.getElementById('c68_w_op').value) || 0;
-    const c68_r_op = parseFloat(document.getElementById('c68_r_op').value) || 0;
-    const c68_w_rec = parseFloat(document.getElementById('c68_w_rec').value) || 0;
-    const c68_r_rec = parseFloat(document.getElementById('c68_r_rec').value) || 0;
-    const c68_w_con = parseFloat(document.getElementById('c68_w_con').value) || 0;
-    const c68_r_con = parseFloat(document.getElementById('c68_r_con').value) || 0;
+    if (!isPrimary) {
+        const c68_w_op = parseFloat(document.getElementById('c68_w_op').value) || 0;
+        const c68_r_op = parseFloat(document.getElementById('c68_r_op').value) || 0;
+        const c68_w_rec = parseFloat(document.getElementById('c68_w_rec').value) || 0;
+        const c68_r_rec = parseFloat(document.getElementById('c68_r_rec').value) || 0;
+        const c68_w_con = parseFloat(document.getElementById('c68_w_con').value) || 0;
+        const c68_r_con = parseFloat(document.getElementById('c68_r_con').value) || 0;
 
-    const c68_w_rem = (c68_w_op + c68_w_rec) - c68_w_con;
-    const c68_r_rem = (c68_r_op + c68_r_rec) - c68_r_con;
-    const c68_ben = Math.round((c68_w_con + c68_r_con) / 0.15);
-    const c68_exp = Math.round(c68_ben * 10.17);
+        const c68_w_rem = (c68_w_op + c68_w_rec) - c68_w_con;
+        const c68_r_rem = (c68_r_op + c68_r_rec) - c68_r_con;
+        const c68_ben = Math.round((c68_w_con + c68_r_con) / 0.15);
+        const c68_exp = Math.round(c68_ben * 10.17);
 
-    document.getElementById('c68_w_rem').value = c68_w_rem.toFixed(3);
-    document.getElementById('c68_r_rem').value = c68_r_rem.toFixed(3);
-    document.getElementById('c68_ben').value = c68_ben;
-    document.getElementById('c68_exp').value = c68_exp;
+        document.getElementById('c68_w_rem').value = c68_w_rem.toFixed(3);
+        document.getElementById('c68_r_rem').value = c68_r_rem.toFixed(3);
+        document.getElementById('c68_ben').value = c68_ben;
+        document.getElementById('c68_exp').value = c68_exp;
+    }
 
     const m_ben_15 = parseFloat(document.getElementById('m_ben_15').value) || 0;
-    const m_ben_68 = parseFloat(document.getElementById('m_ben_68').value) || 0;
+    const m_ben_68 = isPrimary ? 0 : (parseFloat(document.getElementById('m_ben_68').value) || 0);
     const m_op_15 = parseFloat(document.getElementById('m_op_15').value) || 0;
-    const m_op_68 = parseFloat(document.getElementById('m_op_68').value) || 0;
+    const m_op_68 = isPrimary ? 0 : (parseFloat(document.getElementById('m_op_68').value) || 0);
     const m_rec_15 = parseFloat(document.getElementById('m_rec_15').value) || 0;
-    const m_rec_68 = parseFloat(document.getElementById('m_rec_68').value) || 0;
+    const m_rec_68 = isPrimary ? 0 : (parseFloat(document.getElementById('m_rec_68').value) || 0);
 
     const m_con_15 = m_ben_15 * 0.015;
-    const m_con_68 = m_ben_68 * 0.020;
     const m_rem_15 = (m_op_15 + m_rec_15) - m_con_15;
-    const m_rem_68 = (m_op_68 + m_rec_68) - m_con_68;
-
     const s_con_15 = m_ben_15 * 8.4;
-    const s_con_68 = m_ben_68 * 10.2;
 
     document.getElementById('m_con_15').value = m_con_15.toFixed(3);
-    document.getElementById('m_con_68').value = m_con_68.toFixed(3);
     document.getElementById('m_rem_15').value = m_rem_15.toFixed(3);
-    document.getElementById('m_rem_68').value = m_rem_68.toFixed(3);
     document.getElementById('s_con_15').value = s_con_15.toFixed(1);
-    document.getElementById('s_con_68').value = s_con_68.toFixed(1);
+
+    if (!isPrimary) {
+        const m_con_68 = m_ben_68 * 0.020;
+        const m_rem_68 = (m_op_68 + m_rec_68) - m_con_68;
+        const s_con_68 = m_ben_68 * 10.2;
+
+        document.getElementById('m_con_68').value = m_con_68.toFixed(3);
+        document.getElementById('m_rem_68').value = m_rem_68.toFixed(3);
+        document.getElementById('s_con_68').value = s_con_68.toFixed(1);
+    }
 
     const sugar_rate = parseFloat(document.getElementById('sugar_rate').value) || 0;
-    const tot_sugar_gm = s_con_15 + s_con_68;
+    const s_con_68_val = isPrimary ? 0 : (parseFloat(document.getElementById('s_con_68').value) || 0);
+    const tot_sugar_gm = s_con_15 + s_con_68_val;
     const bg_sugar_exp = Math.round((tot_sugar_gm / 1000) * sugar_rate);
     document.getElementById('bg_exp_s').value = bg_sugar_exp;
 
@@ -696,6 +738,7 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     e.preventDefault();
     runCalculations();
 
+    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
     const month = document.getElementById('monthSelect').value;
     const year = document.getElementById('yearSelect').value;
     const monthYearStr = `${month} ${year}`;
@@ -747,21 +790,29 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     document.getElementById('p_c68_ben').innerText = document.getElementById('c68_ben').value;
     document.getElementById('p_c68_exp').innerText = document.getElementById('c68_exp').value;
 
-    const totEnr = (parseFloat(document.getElementById('c15_enr').value)||0) + (parseFloat(document.getElementById('c68_enr').value)||0);
-    const totBen = (parseFloat(document.getElementById('c15_ben').value)||0) + (parseFloat(document.getElementById('c68_ben').value)||0);
-    const totExp = (parseFloat(document.getElementById('c15_exp').value)||0) + (parseFloat(document.getElementById('c68_exp').value)||0);
+    const c15_enr = parseFloat(document.getElementById('c15_enr').value)||0;
+    const c68_enr = isPrimary ? 0 : (parseFloat(document.getElementById('c68_enr').value)||0);
+    const totEnr = c15_enr + c68_enr;
+
+    const c15_ben = parseFloat(document.getElementById('c15_ben').value)||0;
+    const c68_ben = isPrimary ? 0 : (parseFloat(document.getElementById('c68_ben').value)||0);
+    const totBen = c15_ben + c68_ben;
+
+    const c15_exp = parseFloat(document.getElementById('c15_exp').value)||0;
+    const c68_exp = isPrimary ? 0 : (parseFloat(document.getElementById('c68_exp').value)||0);
+    const totExp = c15_exp + c68_exp;
 
     document.getElementById('p_tot_enr').innerText = totEnr;
     document.getElementById('p_tot_enr2').innerText = totEnr;
     
-    document.getElementById('p_tot_w_op').innerText = ((parseFloat(document.getElementById('c15_w_op').value)||0) + (parseFloat(document.getElementById('c68_w_op').value)||0)).toFixed(3);
-    document.getElementById('p_tot_r_op').innerText = ((parseFloat(document.getElementById('c15_r_op').value)||0) + (parseFloat(document.getElementById('c68_r_op').value)||0)).toFixed(3);
-    document.getElementById('p_tot_w_rec').innerText = ((parseFloat(document.getElementById('c15_w_rec').value)||0) + (parseFloat(document.getElementById('c68_w_rec').value)||0)).toFixed(3);
-    document.getElementById('p_tot_r_rec').innerText = ((parseFloat(document.getElementById('c15_r_rec').value)||0) + (parseFloat(document.getElementById('c68_r_rec').value)||0)).toFixed(3);
-    document.getElementById('p_tot_w_con').innerText = ((parseFloat(document.getElementById('c15_w_con').value)||0) + (parseFloat(document.getElementById('c68_w_con').value)||0)).toFixed(3);
-    document.getElementById('p_tot_r_con').innerText = ((parseFloat(document.getElementById('c15_r_con').value)||0) + (parseFloat(document.getElementById('c68_r_con').value)||0)).toFixed(3);
-    document.getElementById('p_tot_w_rem').innerText = ((parseFloat(document.getElementById('c15_w_rem').value)||0) + (parseFloat(document.getElementById('c68_w_rem').value)||0)).toFixed(3);
-    document.getElementById('p_tot_r_rem').innerText = ((parseFloat(document.getElementById('c15_r_rem').value)||0) + (parseFloat(document.getElementById('c68_r_rem').value)||0)).toFixed(3);
+    document.getElementById('p_tot_w_op').innerText = ((parseFloat(document.getElementById('c15_w_op').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_w_op').value)||0))).toFixed(3);
+    document.getElementById('p_tot_r_op').innerText = ((parseFloat(document.getElementById('c15_r_op').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_r_op').value)||0))).toFixed(3);
+    document.getElementById('p_tot_w_rec').innerText = ((parseFloat(document.getElementById('c15_w_rec').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_w_rec').value)||0))).toFixed(3);
+    document.getElementById('p_tot_r_rec').innerText = ((parseFloat(document.getElementById('c15_r_rec').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_r_rec').value)||0))).toFixed(3);
+    document.getElementById('p_tot_w_con').innerText = ((parseFloat(document.getElementById('c15_w_con').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_w_con').value)||0))).toFixed(3);
+    document.getElementById('p_tot_r_con').innerText = ((parseFloat(document.getElementById('c15_r_con').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_r_con').value)||0))).toFixed(3);
+    document.getElementById('p_tot_w_rem').innerText = ((parseFloat(document.getElementById('c15_w_rem').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_w_rem').value)||0))).toFixed(3);
+    document.getElementById('p_tot_r_rem').innerText = ((parseFloat(document.getElementById('c15_r_rem').value)||0) + (isPrimary ? 0 : (parseFloat(document.getElementById('c68_r_rem').value)||0))).toFixed(3);
     document.getElementById('p_tot_ben').innerText = totBen;
     document.getElementById('p_tot_exp').innerText = totExp;
 
