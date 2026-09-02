@@ -82,48 +82,53 @@
             color: #000;
         }
 
-        /* 1. Part - 1 Glow / Color Shift Effect */
-        .glow-title {
-            animation: colorShiftGlow 3s infinite alternate;
-        }
-
-        @keyframes colorShiftGlow {
-            0% {
-                color: #0d6efd;
-                text-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
-            }
-            50% {
-                color: #d63384;
-                text-shadow: 0 0 12px rgba(214, 51, 132, 0.8), 0 0 20px rgba(214, 51, 132, 0.6);
-            }
-            100% {
-                color: #0dcaf0;
-                text-shadow: 0 0 15px rgba(13, 202, 240, 0.9), 0 0 25px rgba(13, 202, 240, 0.7);
-            }
-        }
-
-        /* 2. Right Side Slide-in Bright Red Support Banner */
-        .admin-support-banner {
-            position: fixed;
-            top: 20px;
-            right: -100%;
-            background: linear-gradient(135deg, #ff0000, #dc3545);
+        /* Continuous Scrolling Marquee Banner Styles */
+        .tech-support-marquee {
+            background-color: #ff0000;
             color: #ffffff;
-            padding: 12px 20px;
-            border-radius: 8px 0 0 8px;
-            box-shadow: -4px 4px 15px rgba(255, 0, 0, 0.5);
-            font-weight: bold;
-            font-size: 13px;
-            z-index: 9999;
-            animation: slideInRight 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+            margin-bottom: 15px;
+            border-radius: 6px;
         }
 
-        @keyframes slideInRight {
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* Color Shift and Glow Animation */
+        .glow-color-shift {
+            font-family: Arial, sans-serif;
+            animation: glowShift 3s infinite alternate;
+        }
+
+        @keyframes glowShift {
             0% {
-                right: -100%;
+                color: #00ffff;
+                text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+            }
+            33% {
+                color: #ffff00;
+                text-shadow: 0 0 5px #ffff00, 0 0 10px #ffff00, 0 0 20px #ffff00;
+            }
+            66% {
+                color: #00ff00;
+                text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
             }
             100% {
-                right: 0;
+                color: #ffffff;
+                text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
             }
         }
 
@@ -153,18 +158,22 @@
 </head>
 <body class="py-3">
 
-<!-- Floating Admin Support Banner -->
-<div class="admin-support-banner no-print">
-    کسی भी प्रकार की तकनीकी समस्या के लिए <strong>@admin - Tr Gordhan Ram</strong> , <strong>6378212004</strong> , <strong>#MGGS_PANCHWA</strong> के साथ सुझाव साझा करें।
-</div>
-
 <div class="container-fluid no-print" style="max-width: 1350px;">
+    <!-- Technical Support Continuous Marquee Banner -->
+    <div class="tech-support-marquee">
+        <div class="marquee-content">
+            📢 किसी भी प्रकार की तकनीकी समस्या के लिए @admin - Tr Gordhan Ram , 6378212004 , #MGGS_PANCHWA के साथ सुझाव साझा करें।
+        </div>
+    </div>
+
     <h3 class="text-center fw-bold text-primary mb-3">MDM मासिक प्रगति रिपोर्ट डेटा पोर्टल</h3>
 
     <form id="mdmMainForm">
         <!-- PART 1: GENERAL INFO -->
         <div class="dashboard-card">
-            <h5 class="fw-bold border-bottom pb-2 mb-3 glow-title">PART - 1 : (सामान्य जानकारी) <small style="font-size: 11px; font-weight: normal; color: #6c757d;">[कृपया जानकारी अंग्रेजी फॉन्ट में ही भरें]</small></h5>
+            <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                <span class="glow-color-shift">PART - 1 में सामान्य जानकारियां अंग्रेजी फॉन्ट में ही भरें।</span>
+            </h5>
             <div class="row g-2 mb-2">
                 <div class="col-md-4">
                     <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
