@@ -174,7 +174,7 @@
         <!-- PART 1: GENERAL INFO -->
         <div class="dashboard-card">
             <h5 class="fw-bold border-bottom pb-2 mb-3">
-                <span class="glow-color-shift">PART - 1 में सामान्य जानकारियां अंग्रेजी फॉन्ट में ही भरें। (Google Sheet ऑटो-फ़िल)</span>
+                <span class="glow-color-shift">PART - 1 में सामान्य जानकारियां (Google Sheet Auto-Fill)</span>
             </h5>
             <div class="row g-2 mb-2">
                 <div class="col-md-4">
@@ -667,57 +667,79 @@
 </div>
 
 <script>
-// Web App URL Attached directly
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzzYnrYXFK7IdXOKp1zHK25wsRaysuUntee9YEzbNb0D_0IOeEzwuq0fnurbyQ9SdkXQ/exec";
+// Your Published Google Sheet CSV URL
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxmnjI9xnc1WCovYuHgZm32WWteI_sqTbZllVgE5Vld2dnonQ9d98XVc9Ef82XCYZNu9ut-Yo8SwYB/pub?output=csv";
 let globalSchoolData = [];
 
-// Fetch Google Sheet Data on Load
+// Fetch CSV Data on Load
 window.addEventListener('DOMContentLoaded', function() {
-    fetch(WEB_APP_URL)
-        .then(response => response.json())
-        .then(data => {
-            globalSchoolData = data;
-            const dropdown = document.getElementById('schoolSelectDropdown');
-            dropdown.innerHTML = '<option value="">-- स्कूल का नाम चुनें --</option>';
-            
-            data.forEach(school => {
-                let schoolNameVal = school.schoolName || school['School Name'] || school['विद्यालय का नाम'] || '';
-                if(schoolNameVal) {
-                    let opt = document.createElement('option');
-                    opt.value = schoolNameVal;
-                    opt.textContent = schoolNameVal;
-                    dropdown.appendChild(opt);
-                }
-            });
+    fetch(CSV_URL)
+        .then(response => response.text())
+        .then(csvText => {
+            parseCSV(csvText);
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
-            document.getElementById('schoolSelectDropdown').innerHTML = '<option value="">डेटा लोड करने में त्रुटि</option>';
+            console.error('Error fetching CSV:', error);
+            document.getElementById('schoolSelectDropdown').innerHTML = '<option value="">डेटा लोड करने में विफल</option>';
         });
 });
+
+function parseCSV(text) {
+    let lines = text.split("\n");
+    if(lines.length < 2) return;
+
+    let headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, ''));
+    globalSchoolData = [];
+    const dropdown = document.getElementById('schoolSelectDropdown');
+    dropdown.innerHTML = '<option value="">-- स्कूल का नाम चुनें --</option>';
+
+    for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        let currentline = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+        let obj = {};
+        for (let j = 0; j < headers.length; j++) {
+            let val = currentline[j] ? currentline[j].trim().replace(/^"|"$/g, '') : '';
+            obj[headers[j]] = val;
+        }
+        globalSchoolData.push(obj);
+
+        let schoolNameVal = obj.schoolName || obj['School Name'] || obj['विद्यालय का नाम'] || obj[headers[1]] || obj[headers[0]];
+        if (schoolNameVal) {
+            let opt = document.createElement('option');
+            opt.value = schoolNameVal;
+            opt.textContent = schoolNameVal;
+            dropdown.appendChild(opt);
+        }
+    }
+}
 
 // Dropdown Selection Change Event Listener
 document.getElementById('schoolSelectDropdown').addEventListener('change', function() {
     const selectedName = this.value;
     if(!selectedName) return;
 
-    const school = globalSchoolData.find(s => (s.schoolName || s['School Name'] || s['विद्यालय का नाम']) === selectedName);
+    const school = globalSchoolData.find(s => {
+        let keys = Object.keys(s);
+        let name = s.schoolName || s['School Name'] || s['विद्यालय का नाम'] || s[keys[1]] || s[keys[0]];
+        return name === selectedName;
+    });
     
     if (school) {
+        let keys = Object.keys(school);
         document.getElementById('schoolName').value = selectedName;
-        document.getElementById('schoolCode').value = school.schoolCode || school['schoolCode'] || school['MDM Code'] || school['क्र. सं.'] || '';
-        document.getElementById('gpName').value = school.gpName || school['gpName'] || school['Gram Panchayat'] || school['ग्राम पंचायत'] || '';
-        document.getElementById('principalName').value = school.principalName || school['principalName'] || school['संस्था प्रधान का नाम'] || '';
-        document.getElementById('inchargeName').value = school.inchargeName || school['inchargeName'] || school['पोषाहार प्रभारी का नाम'] || '';
-        document.getElementById('principalMobile').value = school.principalMobile || school['principalMobile'] || school['संस्था प्रधान मोबाइल'] || '';
-        document.getElementById('inchargeMobile').value = school.inchargeMobile || school['inchargeMobile'] || school['प्रभारी मोबाइल'] || '';
-        document.getElementById('smcAccount').value = school.smcAccount || school['smcAccount'] || school['SMC खाता संख्या'] || '';
-        document.getElementById('helperName').value = school.helperName || school['helperName'] || school['कुककम हेल्पर का नाम'] || '';
-        document.getElementById('payStatusMonth').value = school.payStatusMonth || school['payStatusMonth'] || school['भुगतान स्थिति'] || '';
-        document.getElementById('chargeDate').value = school.chargeDate || school['chargeDate'] || school['चार्ज दिनांक'] || '';
+        document.getElementById('schoolCode').value = school.schoolCode || school[keys[0]] || '';
+        document.getElementById('gpName').value = school.gpName || school[keys[3]] || '';
+        document.getElementById('principalName').value = school.principalName || school[keys[4]] || '';
+        document.getElementById('inchargeName').value = school.inchargeName || school[keys[5]] || '';
+        document.getElementById('principalMobile').value = school.principalMobile || school[keys[6]] || '';
+        document.getElementById('inchargeMobile').value = school.inchargeMobile || school[keys[7]] || '';
+        document.getElementById('smcAccount').value = school.smcAccount || school[keys[8]] || '';
+        document.getElementById('helperName').value = school.helperName || school[keys[9]] || '';
+        document.getElementById('payStatusMonth').value = school.payStatusMonth || school[keys[10]] || '';
+        document.getElementById('chargeDate').value = school.chargeDate || school[keys[11]] || '';
         
-        if (school.schoolType || school['schoolType']) {
-            document.getElementById('schoolType').value = school.schoolType || school['schoolType'];
+        if (school.schoolType || school[keys[2]]) {
+            document.getElementById('schoolType').value = school.schoolType || school[keys[2]] || 'UPPER PRIMARY';
             toggleSchoolType();
         }
     }
