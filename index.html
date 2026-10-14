@@ -154,6 +154,7 @@
                 display: block !important; 
             }
             .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
         }
     </style>
 </head>
@@ -173,12 +174,15 @@
         <!-- PART 1: GENERAL INFO -->
         <div class="dashboard-card">
             <h5 class="fw-bold border-bottom pb-2 mb-3">
-                <span class="glow-color-shift">PART - 1 में सामान्य जानकारियां अंग्रेजी फॉन्ट में ही भरें।</span>
+                <span class="glow-color-shift">PART - 1 में सामान्य जानकारियां अंग्रेजी फॉन्ट में ही भरें। (Google Sheet ऑटो-फ़िल)</span>
             </h5>
             <div class="row g-2 mb-2">
                 <div class="col-md-4">
-                    <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
-                    <input type="text" id="schoolName" class="form-control" required placeholder="उदा. MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
+                    <label class="form-label fw-bold">स्कूल का नाम चुनें (Dropdown)</label>
+                    <select id="schoolSelectDropdown" class="form-select border-primary fw-bold" required>
+                        <option value="">-- लोडिंग गूगल शीट डेटा... --</option>
+                    </select>
+                    <input type="hidden" id="schoolName">
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold text-danger">स्कूल का प्रकार</label>
@@ -193,41 +197,69 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">संस्था प्रधान का नाम</label>
-                    <input type="text" id="principalName" class="form-control" required placeholder="उदा. श्री दिनेश कुमार">
+                    <input type="text" id="principalName" class="form-control field-locked" required placeholder="उदा. श्री दिनेश कुमार">
+                </div>
+            </div>
+            <div class="row g-2 mb-2">
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">क्र. सं. (MDM कोड)</label>
+                    <input type="text" id="schoolCode" class="form-control field-locked" required placeholder="उदा. 104 या 402846">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
+                    <input type="text" id="inchargeName" class="form-control field-locked" required placeholder="उदा. श्री गोर्धन राम">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">संस्था प्रधान मोबाइल नं.</label>
+                    <input type="text" id="principalMobile" class="form-control field-locked" placeholder="मोबाइल नंबर">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">पोषाहार प्रभारी मोबाइल नं.</label>
+                    <input type="text" id="inchargeMobile" class="form-control field-locked" placeholder="मोबाइल नंबर">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold">SMC/SDMC खाता संख्या</label>
+                    <input type="text" id="smcAccount" class="form-control field-locked" placeholder="खाता संख्या">
                 </div>
             </div>
             <div class="row g-2">
                 <div class="col-md-3">
-                    <label class="form-label fw-bold">क्र. सं. (MDM कोड)</label>
-                    <input type="text" id="schoolCode" class="form-control" required placeholder="उदा. 104 या 402846">
+                    <label class="form-label fw-bold">कार्यरत कुककम हेल्पर का नाम</label>
+                    <input type="text" id="helperName" class="form-control field-locked" placeholder="हेल्पर का नाम">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
-                    <input type="text" id="inchargeName" class="form-control" required placeholder="उदा. श्री गोर्धन राम">
+                    <label class="form-label fw-bold">भुगतान की स्थिति (माह का नाम)</label>
+                    <input type="text" id="payStatusMonth" class="form-control field-locked" placeholder="उदा. Jan-2026">
                 </div>
-                <div class="col-md-2">
-                    <label class="form-label fw-bold">वर्ष का चयन</label>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">पोषाहार का चार्ज लेने की तिथि</label>
+                    <input type="text" id="chargeDate" class="form-control field-locked" placeholder="उदा. 01/01/2026">
+                </div>
+                <div class="col-md-1">
+                    <label class="form-label fw-bold">वर्ष</label>
                     <select id="yearSelect" class="form-select" required>
-                        <option value="">वर्ष चुनें</option>
+                        <option value="">वर्ष</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <label class="form-label fw-bold">महीने का चयन</label>
+                <div class="col-md-1">
+                    <label class="form-label fw-bold">महीना</label>
                     <select id="monthSelect" class="form-select" required>
-                        <option value="">महीना चुनें</option>
+                        <option value="">महीना</option>
                         <option value="जनवरी">जनवरी</option><option value="फ़रवरी">फ़रवरी</option><option value="मार्च">मार्च</option>
                         <option value="अप्रैल">अप्रैल</option><option value="मई">मई</option><option value="जून">जून</option>
                         <option value="जुलाई">जुलाई</option><option value="अगस्त">अगस्त</option><option value="सितंबर">सितंबर</option>
                         <option value="अक्टूबर">अक्टूबर</option><option value="नवंबर">नवंबर</option><option value="दिसंबर">दिसंबर</option>
                     </select>
                 </div>
-                <div class="col-md-1">
+            </div>
+            <div class="row g-2 mt-2">
+                <div class="col-md-2">
                     <label class="form-label fw-bold">क्रमांक</label>
                     <input type="text" id="srNo" class="form-control" required placeholder="69">
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label class="form-label fw-bold">दिनांक</label>
                     <input type="date" id="reportDate" class="form-control" required>
                 </div>
@@ -336,7 +368,7 @@
 <!-- PRINTABLE PDF TEMPLATE -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
-        <!-- HEADER TITLE -->
+        <!-- PAGE 1 HEADER TITLE -->
         <div class="text-center mb-1">
             <h5 class="fw-bold mb-0" style="font-size: 21px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; display: inline-block;">
                 OFFICE - <span id="pSchoolTitle"></span>
@@ -572,8 +604,8 @@
             </tbody>
         </table>
 
-        <!-- SIGNATURE AREA WITH EXTRA SPACE FOR STAMP & SIGNATURE -->
-        <div class="row mt-5 pt-3" style="font-size: 11px;">
+        <!-- SIGNATURE AREA FOR PAGE 1 -->
+        <div class="row mt-4 pt-2" style="font-size: 11px;">
             <div class="col-6 text-center fw-bold">
                 <p class="mb-0"><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
                 <p class="mb-0">नाम: <span id="pInchargeNameDisplay"></span></p>
@@ -583,29 +615,121 @@
                 <p class="mb-0">नाम: <span id="pPrincipalNameDisplay"></span></p>
             </div>
         </div>
+
+        <!-- PAGE BREAK FOR PAGE 2 -->
+        <div class="page-break"></div>
+
+        <!-- PAGE 2: ADDITIONAL GOOGLE SHEET BASED DETAILS (SECOND PAGE FORMAT) -->
+        <div class="mt-4 pt-3">
+            <h5 class="fw-bold text-center mb-3" style="text-decoration: underline;">MDM अतिरिक्त सूचना एवं विद्यालय विवरण (पेज - 2)</h5>
+            <table class="table-custom">
+                <thead>
+                    <tr class="section-header-yellow">
+                        <th>SMC / SDMC खाता संख्या जिसमें राशि जमा होनी है</th>
+                        <th>कार्यरत कुककम हेल्पर का नाम</th>
+                        <th>भुगतान की स्थिती (माह का नाम)</th>
+                        <th>वर्तमान पोषाहार प्रभारी के पास कितने माह से चार्ज है</th>
+                        <th>वर्तमान पोषाहार प्रभारी के पास पोषाहार का चार्ज है (दिनांक से)</th>
+                        <th>संस्था प्रधान का नाम</th>
+                        <th>संस्था प्रधान का मोबाइल नंबर</th>
+                        <th>पोषाहार प्रभारी का नाम</th>
+                        <th>पोषाहार प्रभारी का मोबाइल नंबर</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="p2_smcAccount"></td>
+                        <td id="p2_helperName"></td>
+                        <td id="p2_payStatusMonth"></td>
+                        <td id="p2_chargeDuration">1 Month</td>
+                        <td id="p2_chargeDate"></td>
+                        <td id="p2_principalName"></td>
+                        <td id="p2_principalMobile"></td>
+                        <td id="p2_inchargeName"></td>
+                        <td id="p2_inchargeMobile"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- SIGNATURE AREA FOR PAGE 2 -->
+            <div class="row mt-5 pt-4" style="font-size: 11px;">
+                <div class="col-6 text-center fw-bold">
+                    <p class="mb-0"><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
+                    <p class="mb-0">नाम: <span id="pInchargeNameDisplay2"></span></p>
+                </div>
+                <div class="col-6 text-center fw-bold">
+                    <p class="mb-0"><u>हस्ताक्षर संस्था प्रधान (मोहर)</u></p>
+                    <p class="mb-0">नाम: <span id="pPrincipalNameDisplay2"></span></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-// Restrict character input for Part-2 fields (Numbers, Decimal point, and Minus sign allowed)
+// Web App URL Attached directly
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzzYnrYXFK7IdXOKp1zHK25wsRaysuUntee9YEzbNb0D_0IOeEzwuq0fnurbyQ9SdkXQ/exec";
+let globalSchoolData = [];
+
+// Fetch Google Sheet Data on Load
+window.addEventListener('DOMContentLoaded', function() {
+    fetch(WEB_APP_URL)
+        .then(response => response.json())
+        .then(data => {
+            globalSchoolData = data;
+            const dropdown = document.getElementById('schoolSelectDropdown');
+            dropdown.innerHTML = '<option value="">-- स्कूल का नाम चुनें --</option>';
+            
+            data.forEach(school => {
+                let schoolNameVal = school.schoolName || school['School Name'] || school['विद्यालय का नाम'] || '';
+                if(schoolNameVal) {
+                    let opt = document.createElement('option');
+                    opt.value = schoolNameVal;
+                    opt.textContent = schoolNameVal;
+                    dropdown.appendChild(opt);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            document.getElementById('schoolSelectDropdown').innerHTML = '<option value="">डेटा लोड करने में त्रुटि</option>';
+        });
+});
+
+// Dropdown Selection Change Event Listener
+document.getElementById('schoolSelectDropdown').addEventListener('change', function() {
+    const selectedName = this.value;
+    if(!selectedName) return;
+
+    const school = globalSchoolData.find(s => (s.schoolName || s['School Name'] || s['विद्यालय का नाम']) === selectedName);
+    
+    if (school) {
+        document.getElementById('schoolName').value = selectedName;
+        document.getElementById('schoolCode').value = school.schoolCode || school['schoolCode'] || school['MDM Code'] || school['क्र. सं.'] || '';
+        document.getElementById('gpName').value = school.gpName || school['gpName'] || school['Gram Panchayat'] || school['ग्राम पंचायत'] || '';
+        document.getElementById('principalName').value = school.principalName || school['principalName'] || school['संस्था प्रधान का नाम'] || '';
+        document.getElementById('inchargeName').value = school.inchargeName || school['inchargeName'] || school['पोषाहार प्रभारी का नाम'] || '';
+        document.getElementById('principalMobile').value = school.principalMobile || school['principalMobile'] || school['संस्था प्रधान मोबाइल'] || '';
+        document.getElementById('inchargeMobile').value = school.inchargeMobile || school['inchargeMobile'] || school['प्रभारी मोबाइल'] || '';
+        document.getElementById('smcAccount').value = school.smcAccount || school['smcAccount'] || school['SMC खाता संख्या'] || '';
+        document.getElementById('helperName').value = school.helperName || school['helperName'] || school['कुककम हेल्पर का नाम'] || '';
+        document.getElementById('payStatusMonth').value = school.payStatusMonth || school['payStatusMonth'] || school['भुगतान स्थिति'] || '';
+        document.getElementById('chargeDate').value = school.chargeDate || school['chargeDate'] || school['चार्ज दिनांक'] || '';
+        
+        if (school.schoolType || school['schoolType']) {
+            document.getElementById('schoolType').value = school.schoolType || school['schoolType'];
+            toggleSchoolType();
+        }
+    }
+});
+
+// Restrict character input for Part-2 fields
 document.querySelectorAll('.num-only').forEach(input => {
     input.addEventListener('keydown', function(e) {
-        // Allow Navigation & Control Keys (Backspace, Tab, Delete, Arrows, Enter, Escape)
-        if (['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape'].includes(e.key)) {
-            return;
-        }
-        // Allow Decimal point '.' if not already present
-        if (e.key === '.' && !this.value.includes('.')) {
-            return;
-        }
-        // Allow Minus sign '-' if not already present (can be typed anywhere or at the start)
-        if (e.key === '-' && !this.value.includes('-')) {
-            return;
-        }
-        // Block invalid keys like 'e', 'E', '+' and all letters/words
-        if (!/^[0-9]$/.test(e.key)) {
-            e.preventDefault();
-        }
+        if (['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape'].includes(e.key)) return;
+        if (e.key === '.' && !this.value.includes('.')) return;
+        if (e.key === '-' && !this.value.includes('-')) return;
+        if (!/^[0-9]$/.test(e.key)) e.preventDefault();
     });
 });
 
@@ -625,20 +749,16 @@ function toggleSchoolType() {
 
     c68Fields.forEach(field => {
         if (isPrimary) {
-            field.type = 'text'; // Allow "लागू नही" string when Primary is selected
+            field.type = 'text';
             field.value = 'लागू नही';
             field.setAttribute('readonly', 'readonly');
             field.setAttribute('disabled', 'disabled');
             field.classList.add('field-na-disabled');
         } else {
-            field.type = 'number'; // Revert back to number type for Upper Primary
-            if (field.value === 'लागू नही') {
-                field.value = '';
-            }
+            field.type = 'number';
+            if (field.value === 'लागू नही') field.value = '';
             field.removeAttribute('disabled');
-            if (!field.classList.contains('field-locked')) {
-                field.removeAttribute('readonly');
-            }
+            if (!field.classList.contains('field-locked')) field.removeAttribute('readonly');
             field.classList.remove('field-na-disabled');
         }
     });
@@ -781,7 +901,7 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
         document.getElementById('pMonthYear' + i).innerText = monthYearStr;
     });
 
-    const fullSchoolName = document.getElementById('schoolName').value;
+    const fullSchoolName = document.getElementById('schoolSelectDropdown').value || document.getElementById('schoolName').value;
     const mdmCode = document.getElementById('schoolCode').value;
 
     document.getElementById('pSchoolTitle').innerText = fullSchoolName;
@@ -790,6 +910,9 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     
     document.getElementById('pInchargeNameDisplay').innerText = document.getElementById('inchargeName').value;
     document.getElementById('pPrincipalNameDisplay').innerText = document.getElementById('principalName').value;
+    
+    document.getElementById('pInchargeNameDisplay2').innerText = document.getElementById('inchargeName').value;
+    document.getElementById('pPrincipalNameDisplay2').innerText = document.getElementById('principalName').value;
 
     const gp = document.getElementById('gpName').value;
     const shortSchool = formatShortSchoolName(fullSchoolName);
@@ -884,6 +1007,16 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     document.getElementById('p_h_due').innerText = document.getElementById('helper_due').value;
     document.getElementById('p_hlth').innerText = document.getElementById('health_cnt').value;
     document.getElementById('p_ins').innerText = document.getElementById('ins_cnt').value;
+
+    // PAGE 2 VALUES POPULATION
+    document.getElementById('p2_smcAccount').innerText = document.getElementById('smcAccount').value;
+    document.getElementById('p2_helperName').innerText = document.getElementById('helperName').value;
+    document.getElementById('p2_payStatusMonth').innerText = document.getElementById('payStatusMonth').value;
+    document.getElementById('p2_chargeDate').innerText = document.getElementById('chargeDate').value;
+    document.getElementById('p2_principalName').innerText = document.getElementById('principalName').value;
+    document.getElementById('p2_principalMobile').innerText = document.getElementById('principalMobile').value;
+    document.getElementById('p2_inchargeName').innerText = document.getElementById('inchargeName').value;
+    document.getElementById('p2_inchargeMobile').innerText = document.getElementById('inchargeMobile').value;
 
     const element = document.getElementById('pdfTemplate');
     element.style.display = 'block';
