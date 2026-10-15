@@ -177,23 +177,22 @@
             </h5>
             <div class="row g-2 mb-2">
                 <div class="col-md-4">
-                    <label class="form-label fw-bold">स्कूल का नाम (पूरा नाम)</label>
-                    <input type="text" id="schoolName" class="form-control" required placeholder="उदा. MAHATMA GANDHI GOVERNMENT SCHOOL REGAR BASTI PANCHWA">
+                    <label class="form-label fw-bold">स्कूल का नाम (ड्रॉपडाउन से चुनें)</label>
+                    <select id="schoolSelect" class="form-select border-primary fw-bold" required>
+                        <option value="">गूगल शीट से लोड हो रहा है...</option>
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold text-danger">स्कूल का प्रकार</label>
-                    <select id="schoolType" class="form-select border-danger fw-bold" required>
-                        <option value="UPPER PRIMARY">UPPER PRIMARY</option>
-                        <option value="PRIMARY">PRIMARY</option>
-                    </select>
+                    <input type="text" id="schoolType" class="form-control field-locked fw-bold" readonly placeholder="ऑटो सेलेक्ट होगा">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">ग्राम पंचायत का नाम</label>
-                    <input type="text" id="gpName" class="form-control" required placeholder="उदा. पांचवा">
+                    <input type="text" id="gpName" class="form-control field-locked" readonly placeholder="ऑटो लोड होगा">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">संस्था प्रधान का नाम</label>
-                    <input type="text" id="principalName" class="form-control" required placeholder="उदा. श्री दिनेश कुमार">
+                    <input type="text" id="principalName" class="form-control field-locked" readonly placeholder="ऑटो लोड होगा">
                 </div>
             </div>
             <div class="row g-2">
@@ -203,7 +202,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
-                    <input type="text" id="inchargeName" class="form-control" required placeholder="उदा. श्री गोर्धन राम">
+                    <input type="text" id="inchargeName" class="form-control field-locked" readonly placeholder="ऑटो लोड होगा">
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold">वर्ष का चयन</label>
@@ -587,22 +586,124 @@
 </div>
 
 <script>
+const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxmnjI9xnc1WCovYuHgZm32WWteI_sqTbZllVgE5Vld2dnonQ9d98XVc9Ef82XCYZNu9ut-Yo8SwYB/pub?output=csv";
+
+let schoolDataMap = {};
+
+// CSV Parsing Function
+function parseCSV(text) {
+    let lines = text.split(/\r\n|\n/);
+    let result = [];
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) continue;
+        let row = [];
+        let insideQuote = false;
+        let entry = '';
+        for (let j = 0; j < line.length; j++) {
+            let char = line[j];
+            if (char === '"') {
+                insideQuote = !insideQuote;
+            } else if (char === ',' && !insideQuote) {
+                row.push(entry.trim());
+                entry = '';
+            } else {
+                entry += char;
+            }
+        }
+        row.push(entry.trim());
+        result.push(row);
+    }
+    return result;
+}
+
+// Fetch Google Sheet Data on Load
+window.addEventListener('DOMContentLoaded', () => {
+    fetch(GOOGLE_SHEET_CSV_URL)
+        .then(response => response.text())
+        .then(csvText => {
+            let rows = parseCSV(csvText);
+            let select = document.getElementById('schoolSelect');
+            select.innerHTML = '<option value="">-- स्कूल चुनें --</option>';
+
+            if (rows.length < 2) return;
+
+            // Normalize Headers
+            let headers = rows[0].map(h => h.toLowerCase().trim().replace(/ /g, '_'));
+
+            for (let i = 1; i < rows.length; i++) {
+                let row = rows[i];
+                let rowData = {};
+                headers.forEach((header, index) => {
+                    rowData[header] = row[index] ? row[index].replace(/^"|"$/g, '') : '';
+                });
+
+                // Flexible Column Mapping for Google Sheet
+                let sName = rowData['school_name'] || rowData['schoolname'] || rowData['school'] || row[0] || '';
+                let pName = rowData['principal_name'] || rowData['principal'] || rowData['hm_name'] || row[1] || '';
+                let iName = rowData['incharge_name'] || rowData['incharge'] || rowData['mdm_incharge'] || row[2] || '';
+                let gp = rowData['gp_name'] || rowData['gp'] || rowData['gram_panchayat'] || row[3] || '';
+                let sType = rowData['school_type'] || rowData['type'] || row[4] || 'UPPER PRIMARY';
+
+                if (sName) {
+                    schoolDataMap[sName] = {
+                        principal: pName,
+                        incharge: iName,
+                        gp: gp,
+                        type: sType
+                    };
+
+                    let opt = document.createElement('option');
+                    opt.value = sName;
+                    opt.textContent = sName;
+                    select.appendChild(opt);
+                }
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching Google Sheet:', err);
+            let select = document.getElementById('schoolSelect');
+            select.innerHTML = '<option value="">शीट लोड नहीं हो सकी, पुनः प्रयास करें</option>';
+        });
+});
+
+// School Dropdown Selection Handler
+document.getElementById('schoolSelect').addEventListener('change', function() {
+    let selectedSchool = this.value;
+    if (selectedSchool && schoolDataMap[selectedSchool]) {
+        let data = schoolDataMap[selectedSchool];
+        document.getElementById('principalName').value = data.principal || '';
+        document.getElementById('inchargeName').value = data.incharge || '';
+        document.getElementById('gpName').value = data.gp || '';
+
+        let typeVal = (data.type || '').toUpperCase();
+        if (typeVal.includes('PRIMARY') && !typeVal.includes('UPPER')) {
+            document.getElementById('schoolType').value = 'PRIMARY';
+        } else {
+            document.getElementById('schoolType').value = typeVal || 'UPPER PRIMARY';
+        }
+    } else {
+        document.getElementById('principalName').value = '';
+        document.getElementById('inchargeName').value = '';
+        document.getElementById('gpName').value = '';
+        document.getElementById('schoolType').value = '';
+    }
+
+    toggleSchoolType();
+});
+
 // Restrict character input for Part-2 fields (Numbers, Decimal point, and Minus sign allowed)
 document.querySelectorAll('.num-only').forEach(input => {
     input.addEventListener('keydown', function(e) {
-        // Allow Navigation & Control Keys (Backspace, Tab, Delete, Arrows, Enter, Escape)
         if (['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape'].includes(e.key)) {
             return;
         }
-        // Allow Decimal point '.' if not already present
         if (e.key === '.' && !this.value.includes('.')) {
             return;
         }
-        // Allow Minus sign '-' if not already present (can be typed anywhere or at the start)
         if (e.key === '-' && !this.value.includes('-')) {
             return;
         }
-        // Block invalid keys like 'e', 'E', '+' and all letters/words
         if (!/^[0-9]$/.test(e.key)) {
             e.preventDefault();
         }
@@ -616,11 +717,9 @@ document.addEventListener('wheel', function(event) {
     }
 });
 
-// School Type Change Handler
-document.getElementById('schoolType').addEventListener('change', toggleSchoolType);
-
 function toggleSchoolType() {
-    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
+    const sType = (document.getElementById('schoolType').value || '').toUpperCase();
+    const isPrimary = sType === 'PRIMARY';
     const c68Fields = document.querySelectorAll('.c68-field');
 
     c68Fields.forEach(field => {
@@ -631,7 +730,7 @@ function toggleSchoolType() {
             field.setAttribute('disabled', 'disabled');
             field.classList.add('field-na-disabled');
         } else {
-            field.type = 'number'; // Revert back to number type for Upper Primary
+            field.type = 'number'; // Unlock fields for Upper Primary / Sr Sec
             if (field.value === 'लागू नही') {
                 field.value = '';
             }
@@ -652,7 +751,8 @@ document.querySelectorAll('.calc-trigger').forEach(input => {
 });
 
 function runCalculations() {
-    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
+    const sType = (document.getElementById('schoolType').value || '').toUpperCase();
+    const isPrimary = sType === 'PRIMARY';
 
     const c15_w_op = parseFloat(document.getElementById('c15_w_op').value) || 0;
     const c15_r_op = parseFloat(document.getElementById('c15_r_op').value) || 0;
@@ -772,7 +872,8 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     e.preventDefault();
     runCalculations();
 
-    const isPrimary = document.getElementById('schoolType').value === 'PRIMARY';
+    const sType = (document.getElementById('schoolType').value || '').toUpperCase();
+    const isPrimary = sType === 'PRIMARY';
     const month = document.getElementById('monthSelect').value;
     const year = document.getElementById('yearSelect').value;
     const monthYearStr = `${month} ${year}`;
@@ -781,7 +882,7 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
         document.getElementById('pMonthYear' + i).innerText = monthYearStr;
     });
 
-    const fullSchoolName = document.getElementById('schoolName').value;
+    const fullSchoolName = document.getElementById('schoolSelect').value;
     const mdmCode = document.getElementById('schoolCode').value;
 
     document.getElementById('pSchoolTitle').innerText = fullSchoolName;
