@@ -198,7 +198,7 @@
             <div class="row g-2">
                 <div class="col-md-3">
                     <label class="form-label fw-bold">क्र. सं. (MDM कोड)</label>
-                    <input type="text" id="schoolCode" class="form-control" required placeholder="उदा. 104 या 402846">
+                    <input type="text" id="schoolCode" class="form-control field-locked" readonly placeholder="ऑटो लोड होगा">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">MDM प्रभारी का नाम</label>
@@ -644,13 +644,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 let iName = rowData['incharge_name'] || rowData['incharge'] || rowData['mdm_incharge'] || row[2] || '';
                 let gp = rowData['gp_name'] || rowData['gp'] || rowData['gram_panchayat'] || row[3] || '';
                 let sType = rowData['school_type'] || rowData['type'] || row[4] || 'UPPER PRIMARY';
+                let sCode = rowData['school_code'] || rowData['mdm_code'] || rowData['code'] || row[5] || '';
 
                 if (sName) {
                     schoolDataMap[sName] = {
                         principal: pName,
                         incharge: iName,
                         gp: gp,
-                        type: sType
+                        type: sType,
+                        code: sCode
                     };
 
                     let opt = document.createElement('option');
@@ -675,6 +677,7 @@ document.getElementById('schoolSelect').addEventListener('change', function() {
         document.getElementById('principalName').value = data.principal || '';
         document.getElementById('inchargeName').value = data.incharge || '';
         document.getElementById('gpName').value = data.gp || '';
+        document.getElementById('schoolCode').value = data.code || '';
 
         let typeVal = (data.type || '').toUpperCase();
         if (typeVal.includes('PRIMARY') && !typeVal.includes('UPPER')) {
@@ -686,6 +689,7 @@ document.getElementById('schoolSelect').addEventListener('change', function() {
         document.getElementById('principalName').value = '';
         document.getElementById('inchargeName').value = '';
         document.getElementById('gpName').value = '';
+        document.getElementById('schoolCode').value = '';
         document.getElementById('schoolType').value = '';
     }
 
