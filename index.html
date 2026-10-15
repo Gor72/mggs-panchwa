@@ -688,6 +688,7 @@ function parseCSV(text) {
     let lines = text.split("\n");
     if(lines.length < 2) return;
 
+    // Headers ko clean karein
     let headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, ''));
     globalSchoolData = [];
     const dropdown = document.getElementById('schoolSelectDropdown');
@@ -703,6 +704,7 @@ function parseCSV(text) {
         }
         globalSchoolData.push(obj);
 
+        // School name column flexible indexing
         let schoolNameVal = obj.schoolName || obj['School Name'] || obj['विद्यालय का नाम'] || obj[headers[1]] || obj[headers[0]];
         if (schoolNameVal) {
             let opt = document.createElement('option');
@@ -713,7 +715,7 @@ function parseCSV(text) {
     }
 }
 
-// Dropdown Selection Change Event Listener
+// Dropdown Selection Change Event Listener - Auto-populate row fields
 document.getElementById('schoolSelectDropdown').addEventListener('change', function() {
     const selectedName = this.value;
     if(!selectedName) return;
@@ -727,6 +729,8 @@ document.getElementById('schoolSelectDropdown').addEventListener('change', funct
     if (school) {
         let keys = Object.keys(school);
         document.getElementById('schoolName').value = selectedName;
+        
+        // Google Sheet columns mapping based on user sheet layout
         document.getElementById('schoolCode').value = school.schoolCode || school[keys[0]] || '';
         document.getElementById('gpName').value = school.gpName || school[keys[3]] || '';
         document.getElementById('principalName').value = school.principalName || school[keys[4]] || '';
