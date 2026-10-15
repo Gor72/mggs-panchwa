@@ -43,7 +43,6 @@
             font-family: Arial, sans-serif; 
         }
         
-        /* Table Spacing & Alignment Fixes */
         .table-custom { 
             border: 1.2px solid #000 !important; 
             width: 100%; 
@@ -82,7 +81,6 @@
             color: #000;
         }
 
-        /* Continuous Scrolling Marquee Banner Styles */
         .tech-support-marquee {
             background-color: #ff0000;
             color: #ffffff;
@@ -107,7 +105,6 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Subtle Glow and Color Shift Animation (Clear & Sharp Text) */
         .glow-color-shift {
             font-family: Arial, sans-serif;
             font-weight: bold;
@@ -115,44 +112,18 @@
         }
 
         @keyframes subtleGlowShift {
-            0% {
-                color: #0d6efd;
-                text-shadow: 0 0 2px rgba(13, 110, 253, 0.4);
-            }
-            33% {
-                color: #d63384;
-                text-shadow: 0 0 2px rgba(214, 51, 132, 0.4);
-            }
-            66% {
-                color: #198754;
-                text-shadow: 0 0 2px rgba(25, 135, 84, 0.4);
-            }
-            100% {
-                color: #fd7e14;
-                text-shadow: 0 0 2px rgba(253, 126, 20, 0.4);
-            }
+            0% { color: #0d6efd; text-shadow: 0 0 2px rgba(13, 110, 253, 0.4); }
+            33% { color: #d63384; text-shadow: 0 0 2px rgba(214, 51, 132, 0.4); }
+            66% { color: #198754; text-shadow: 0 0 2px rgba(25, 135, 84, 0.4); }
+            100% { color: #fd7e14; text-shadow: 0 0 2px rgba(253, 126, 20, 0.4); }
         }
 
         @media print {
-            @page { 
-                size: A4 landscape; 
-                margin: 4mm 8mm 4mm 8mm; 
-            }
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
+            @page { size: A4 landscape; margin: 4mm 8mm 4mm 8mm; }
+            html, body { width: 100%; height: 100%; margin: 0 !important; padding: 0 !important; }
             body * { visibility: hidden; }
             #pdfTemplate, #pdfTemplate * { visibility: visible; }
-            #pdfTemplate { 
-                position: absolute; 
-                left: 0; 
-                top: 0; 
-                width: 100%; 
-                display: block !important; 
-            }
+            #pdfTemplate { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
             .no-print { display: none !important; }
             .page-break { page-break-before: always; }
         }
@@ -161,7 +132,6 @@
 <body class="py-3">
 
 <div class="container-fluid no-print" style="max-width: 1350px;">
-    <!-- Technical Support Continuous Marquee Banner -->
     <div class="tech-support-marquee">
         <div class="marquee-content">
             📢 किसी भी प्रकार की तकनीकी समस्या के लिए @admin - Tr Gordhan Ram , 6378212004 , #MGGS_PANCHWA के साथ सुझाव साझा करें।
@@ -368,7 +338,6 @@
 <!-- PRINTABLE PDF TEMPLATE -->
 <div id="pdfTemplate" style="display: none;">
     <div class="printable-area">
-        <!-- PAGE 1 HEADER TITLE -->
         <div class="text-center mb-1">
             <h5 class="fw-bold mb-0" style="font-size: 21px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; display: inline-block;">
                 OFFICE - <span id="pSchoolTitle"></span>
@@ -380,7 +349,6 @@
             </div>
         </div>
 
-        <!-- TABLE 1: CLASS 1 TO 5 -->
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
@@ -417,7 +385,6 @@
             </tbody>
         </table>
 
-        <!-- TABLE 2: CLASS 6 TO 8 -->
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
@@ -454,7 +421,6 @@
             </tbody>
         </table>
 
-        <!-- TABLE 3: TOTAL 1 TO 8 -->
         <table class="table-custom">
             <thead>
                 <tr>
@@ -482,7 +448,6 @@
                     <td style="width: 32px;">-</td>
                     <td style="width: 65px;">-</td>
                     <td>कुल योग (1-8)</td>
-                    
                     <td id="p_tot_enr"></td>
                     <td id="p_tot_w_op"></td>
                     <td id="p_tot_r_op"></td>
@@ -498,7 +463,6 @@
             </tbody>
         </table>
 
-        <!-- TABLE 4: BAL GOPAL MILK PLAN -->
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
@@ -538,7 +502,6 @@
             </tbody>
         </table>
 
-        <!-- TABLE 5: BAL GOPAL FINANCIAL DETAILS -->
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
@@ -572,7 +535,6 @@
             </tbody>
         </table>
 
-        <!-- TABLE 6: COOK CUM HELPER DETAILS -->
         <table class="table-custom">
             <thead>
                 <tr class="section-header-yellow">
@@ -604,7 +566,6 @@
             </tbody>
         </table>
 
-        <!-- SIGNATURE AREA FOR PAGE 1 -->
         <div class="row mt-4 pt-2" style="font-size: 11px;">
             <div class="col-6 text-center fw-bold">
                 <p class="mb-0"><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
@@ -616,10 +577,8 @@
             </div>
         </div>
 
-        <!-- PAGE BREAK FOR PAGE 2 -->
         <div class="page-break"></div>
 
-        <!-- PAGE 2: ADDITIONAL GOOGLE SHEET BASED DETAILS (SECOND PAGE FORMAT) -->
         <div class="mt-4 pt-3">
             <h5 class="fw-bold text-center mb-3" style="text-decoration: underline;">MDM अतिरिक्त सूचना एवं विद्यालय विवरण (पेज - 2)</h5>
             <table class="table-custom">
@@ -651,7 +610,6 @@
                 </tbody>
             </table>
 
-            <!-- SIGNATURE AREA FOR PAGE 2 -->
             <div class="row mt-5 pt-4" style="font-size: 11px;">
                 <div class="col-6 text-center fw-bold">
                     <p class="mb-0"><u>हस्ताक्षर पोषाहार प्रभारी</u></p>
@@ -667,11 +625,9 @@
 </div>
 
 <script>
-// Your Published Google Sheet CSV URL
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxmnjI9xnc1WCovYuHgZm32WWteI_sqTbZllVgE5Vld2dnonQ9d98XVc9Ef82XCYZNu9ut-Yo8SwYB/pub?output=csv";
 let globalSchoolData = [];
 
-// Fetch CSV Data on Load
 window.addEventListener('DOMContentLoaded', function() {
     fetch(CSV_URL)
         .then(response => response.text())
@@ -688,8 +644,7 @@ function parseCSV(text) {
     let lines = text.split("\n");
     if(lines.length < 2) return;
 
-    // Headers ko clean karein
-    let headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, ''));
+    let headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
     globalSchoolData = [];
     const dropdown = document.getElementById('schoolSelectDropdown');
     dropdown.innerHTML = '<option value="">-- स्कूल का नाम चुनें --</option>';
@@ -698,14 +653,16 @@ function parseCSV(text) {
         if (!lines[i].trim()) continue;
         let currentline = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
         let obj = {};
+        let rawObj = {};
         for (let j = 0; j < headers.length; j++) {
             let val = currentline[j] ? currentline[j].trim().replace(/^"|"$/g, '') : '';
             obj[headers[j]] = val;
+            rawObj[lines[0].split(',')[j].trim().replace(/^"|"$/g, '')] = val;
         }
-        globalSchoolData.push(obj);
+        // Save both lowercase and original keys for flexible matching
+        globalSchoolData.push({ lower: obj, raw: rawObj, originalArray: currentline, headers: headers });
 
-        // School name column flexible indexing
-        let schoolNameVal = obj.schoolName || obj['School Name'] || obj['विद्यालय का नाम'] || obj[headers[1]] || obj[headers[0]];
+        let schoolNameVal = obj['schoolname'] || obj['school name'] || obj['विद्यालय का नाम'] || currentline[1] || currentline[0];
         if (schoolNameVal) {
             let opt = document.createElement('option');
             opt.value = schoolNameVal;
@@ -715,41 +672,63 @@ function parseCSV(text) {
     }
 }
 
-// Dropdown Selection Change Event Listener - Auto-populate row fields
+// Flexible helper to find field value across multiple possible column names
+function getFieldValue(schoolObj, possibleKeys) {
+    let lowerObj = schoolObj.lower;
+    let rawObj = schoolObj.raw;
+    let arr = schoolObj.originalArray;
+    let headers = schoolObj.headers;
+
+    for (let key of possibleKeys) {
+        let lKey = key.toLowerCase();
+        if (lowerObj[lKey] !== undefined && lowerObj[lKey] !== '') return lowerObj[lKey];
+        if (rawObj[key] !== undefined && rawObj[key] !== '') return rawObj[key];
+        
+        // Search by partial match in headers
+        for (let i = 0; i < headers.length; i++) {
+            if (headers[i].includes(lKey) && arr[i] !== undefined) {
+                let val = arr[i].trim().replace(/^"|"$/g, '');
+                if (val !== '') return val;
+            }
+        }
+    }
+    return '';
+}
+
 document.getElementById('schoolSelectDropdown').addEventListener('change', function() {
     const selectedName = this.value;
     if(!selectedName) return;
 
     const school = globalSchoolData.find(s => {
-        let keys = Object.keys(s);
-        let name = s.schoolName || s['School Name'] || s['विद्यालय का नाम'] || s[keys[1]] || s[keys[0]];
+        let name = getFieldValue(s, ['schoolName', 'School Name', 'विद्यालय का नाम']);
         return name === selectedName;
     });
     
     if (school) {
-        let keys = Object.keys(school);
         document.getElementById('schoolName').value = selectedName;
         
-        // Google Sheet columns mapping based on user sheet layout
-        document.getElementById('schoolCode').value = school.schoolCode || school[keys[0]] || '';
-        document.getElementById('gpName').value = school.gpName || school[keys[3]] || '';
-        document.getElementById('principalName').value = school.principalName || school[keys[4]] || '';
-        document.getElementById('inchargeName').value = school.inchargeName || school[keys[5]] || '';
-        document.getElementById('principalMobile').value = school.principalMobile || school[keys[6]] || '';
-        document.getElementById('inchargeMobile').value = school.inchargeMobile || school[keys[7]] || '';
-        document.getElementById('smcAccount').value = school.smcAccount || school[keys[8]] || '';
-        document.getElementById('helperName').value = school.helperName || school[keys[9]] || '';
-        document.getElementById('payStatusMonth').value = school.payStatusMonth || school[keys[10]] || '';
-        document.getElementById('chargeDate').value = school.chargeDate || school[keys[11]] || '';
+        document.getElementById('schoolCode').value = getFieldValue(school, ['schoolCode', 'School Code', 'Code', 'क्र. सं.', 'कोड']);
+        document.getElementById('gpName').value = getFieldValue(school, ['gpName', 'GP Name', 'Gram Panchayat', 'ग्राम पंचायत']);
         
-        if (school.schoolType || school[keys[2]]) {
-            document.getElementById('schoolType').value = school.schoolType || school[keys[2]] || 'UPPER PRIMARY';
+        // Flexible Principal & Incharge retrieval
+        document.getElementById('principalName').value = getFieldValue(school, ['principalName', 'Principal Name', 'संस्था प्रधान', 'Headmaster', 'HM']);
+        document.getElementById('inchargeName').value = getFieldValue(school, ['inchargeName', 'Incharge Name', 'MDM प्रभारी', 'प्रभारी', 'Teacher Incharge']);
+        
+        document.getElementById('principalMobile').value = getFieldValue(school, ['principalMobile', 'Principal Mobile', 'संस्था प्रधान मोबाइल']);
+        document.getElementById('inchargeMobile').value = getFieldValue(school, ['inchargeMobile', 'Incharge Mobile', 'प्रभारी मोबाइल']);
+        document.getElementById('smcAccount').value = getFieldValue(school, ['smcAccount', 'SMC Account', 'Account', 'खाता']);
+        document.getElementById('helperName').value = getFieldValue(school, ['helperName', 'Helper Name', 'कुककम', 'हेल्पर']);
+        document.getElementById('payStatusMonth').value = getFieldValue(school, ['payStatusMonth', 'Pay Status', 'भुगतान']);
+        document.getElementById('chargeDate').value = getFieldValue(school, ['chargeDate', 'Charge Date', 'चार्ज लेने की तिथि']);
+        
+        let sType = getFieldValue(school, ['schoolType', 'School Type', 'प्रकार']);
+        if (sType) {
+            document.getElementById('schoolType').value = sType.toUpperCase().includes('PRIMARY') && !sType.toUpperCase().includes('UPPER') ? 'PRIMARY' : 'UPPER PRIMARY';
             toggleSchoolType();
         }
     }
 });
 
-// Restrict character input for Part-2 fields
 document.querySelectorAll('.num-only').forEach(input => {
     input.addEventListener('keydown', function(e) {
         if (['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape'].includes(e.key)) return;
@@ -759,14 +738,12 @@ document.querySelectorAll('.num-only').forEach(input => {
     });
 });
 
-// Prevent Mouse Wheel Value Change
 document.addEventListener('wheel', function(event) {
     if (document.activeElement.type === 'number') {
         document.activeElement.blur();
     }
 });
 
-// School Type Change Handler
 document.getElementById('schoolType').addEventListener('change', toggleSchoolType);
 
 function toggleSchoolType() {
@@ -792,7 +769,6 @@ function toggleSchoolType() {
     runCalculations();
 }
 
-// Automatic Calculation Logic
 document.querySelectorAll('.calc-trigger').forEach(input => {
     input.addEventListener('input', runCalculations);
 });
@@ -891,9 +867,7 @@ function runCalculations() {
 function formatShortSchoolName(fullName) {
     if (!fullName) return '';
     let upperName = fullName.trim().toUpperCase();
-    
     upperName = upperName.replace(/\bSCHOOL\b/g, 'S.');
-    
     let schoolIdx = upperName.indexOf("S.");
     if (schoolIdx !== -1) {
         let prefixPart = upperName.substring(0, schoolIdx).trim();
@@ -1034,7 +1008,6 @@ document.getElementById('mdmMainForm').addEventListener('submit', function(e) {
     document.getElementById('p_hlth').innerText = document.getElementById('health_cnt').value;
     document.getElementById('p_ins').innerText = document.getElementById('ins_cnt').value;
 
-    // PAGE 2 VALUES POPULATION
     document.getElementById('p2_smcAccount').innerText = document.getElementById('smcAccount').value;
     document.getElementById('p2_helperName').innerText = document.getElementById('helperName').value;
     document.getElementById('p2_payStatusMonth').innerText = document.getElementById('payStatusMonth').value;
