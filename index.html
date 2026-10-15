@@ -167,6 +167,11 @@
         </div>
     </div>
 
+    <!-- Portal Profile Photo (Ye sirf portal par dikhegi, print me nahi aayegi kyunki isme 'no-print' class lagi hai) -->
+    <div class="text-center mb-3">
+        <img src="https://lh3.googleusercontent.com/d/https://drive.google.com/file/d/1IfCTENyoGDNe5rSiIcON82NKJoSSw4v_/view?usp=sharing.jpg" alt="Admin Photo" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #0d6efd; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    </div>
+
     <h3 class="text-center fw-bold text-primary mb-3">MDM मासिक प्रगति रिपोर्ट डेटा पोर्टल</h3>
 
     <form id="mdmMainForm">
@@ -638,7 +643,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     rowData[header] = row[index] ? row[index].replace(/^"|"$/g, '') : '';
                 });
 
-                // Flexible Column Mapping for Google Sheet
                 let sName = rowData['school_name'] || rowData['schoolname'] || rowData['school'] || row[0] || '';
                 let pName = rowData['principal_name'] || rowData['principal'] || rowData['hm_name'] || row[1] || '';
                 let iName = rowData['incharge_name'] || rowData['incharge'] || rowData['mdm_incharge'] || row[2] || '';
@@ -728,13 +732,13 @@ function toggleSchoolType() {
 
     c68Fields.forEach(field => {
         if (isPrimary) {
-            field.type = 'text'; // Allow "लागू नही" string when Primary is selected
+            field.type = 'text'; 
             field.value = 'लागू नही';
             field.setAttribute('readonly', 'readonly');
             field.setAttribute('disabled', 'disabled');
             field.classList.add('field-na-disabled');
         } else {
-            field.type = 'number'; // Unlock fields for Upper Primary / Sr Sec
+            field.type = 'number'; 
             if (field.value === 'लागू नही') {
                 field.value = '';
             }
